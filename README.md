@@ -1,5 +1,5 @@
 # java-library-manager
-This Java project, developed as part of the Object-Oriented Programming and Projecting (OOPP) course from the E-Business Master's program.
+This Java project is developed as part of the Object-Oriented Programming and Projecting (OOPP) course from the E-Business Master's program.
 
 The application provides an efficient system for managing book collections in a library. The project utilizes text and binary files, arrays, and collections to ensure data persistence without relying on databases. Key features include:
 
