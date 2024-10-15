@@ -32,6 +32,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="buttonPrintAllBooks" layoutX="65.0" layoutY="139.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="81.0" text="Carti" />
+      <Button fx:id="buttonPrintAllBooks" layoutX="65.0" layoutY="139.0" mnemonicParsing="false" onAction="#displayBooks" prefHeight="44.0" prefWidth="81.0" text="Carti" />
    </children>
 </AnchorPane>

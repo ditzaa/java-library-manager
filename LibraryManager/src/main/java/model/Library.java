@@ -25,4 +25,10 @@ public class Library {
                 .filter(book -> book.getGenre().equalsIgnoreCase(genre))
                 .collect(Collectors.toList());
     }
+
+    public void displayBooks(){
+        for(Book book : books){
+            System.out.println(book.getTitle());
+        }
+    }
 }

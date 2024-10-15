@@ -43,7 +43,15 @@ public class Book {
         return borrowedDate != null;
     }
 
-//    public void borrowBook(LocalDate date) {
-//        this.borrowedDate = date;
-//    }
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", authors=" + authors +
+                ", genre='" + genre + '\'' +
+                ", publicationDate=" + publicationDate +
+                ", borrowedDate=" + borrowedDate +
+                ", currentReader='" + currentReader + '\'' +
+                '}';
+    }
 }

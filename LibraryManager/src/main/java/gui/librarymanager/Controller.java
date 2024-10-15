@@ -24,4 +24,10 @@ public class Controller {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    public void displayBooks(ActionEvent event){
+        System.out.println("mata");
+        LibraryManager.getLibrary().displayBooks();
+    }
 }
