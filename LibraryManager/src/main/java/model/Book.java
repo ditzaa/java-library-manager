@@ -8,7 +8,7 @@ public class Book {
     private String genre;
     private LocalDate publicationDate;
     private LocalDate borrowedDate;
-    private String currentReader ;
+    private String currentReader;
 
     public Book(String title, String author, String genre, LocalDate publicationDate) {
         this.title = title;
