@@ -20,12 +20,6 @@ public class Library {
         books.remove(book);
     }
 
-    public List<Book> getBooksByAuthor(String author) {
-        return books.stream()
-                .filter(book -> book.getAuthor().equalsIgnoreCase(author))
-                .collect(Collectors.toList());
-    }
-
     public List<Book> getBooksByGenre(String genre) {
         return books.stream()
                 .filter(book -> book.getGenre().equalsIgnoreCase(genre))

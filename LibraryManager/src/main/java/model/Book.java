@@ -1,18 +1,19 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Book {
     private String title;
-    private String author;
+    private List<String> authors;
     private String genre;
     private LocalDate publicationDate;
     private LocalDate borrowedDate;
     private String currentReader;
 
-    public Book(String title, String author, String genre, LocalDate publicationDate) {
+    public Book(String title, List<String> authors, String genre, LocalDate publicationDate) {
         this.title = title;
-        this.author = author;
+        this.authors = authors;
         this.genre = genre;
         this.publicationDate = publicationDate;
         this.currentReader = "";
@@ -22,8 +23,8 @@ public class Book {
         return title;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<String> getAuthors() {
+        return authors;
     }
 
     public String getGenre() {
