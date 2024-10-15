@@ -43,4 +43,12 @@ public class AddBookController {
         System.out.println(authors);
         authorTextField.setText("");
     }
+
+    @FXML
+    public void onRemoveAuthor(ActionEvent event) {
+        ObservableList<String> authorsToDelete = authorsListView.getSelectionModel().getSelectedItems();
+        //System.out.println(authorsToDelete);
+        authors.removeAll(authorsToDelete);
+        //authorsListView.getSelectionModel().clearSelection();
+    }
 }
