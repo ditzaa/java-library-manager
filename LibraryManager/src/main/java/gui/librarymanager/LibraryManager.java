@@ -5,12 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Library;
+import util.InputValidator;
 
+import javax.xml.validation.Validator;
 import java.io.IOException;
 
 public class LibraryManager extends Application {
     private static Stage mainStage;
     private static Library library = new Library();
+    private static InputValidator inputValidator = new InputValidator();
 
     @Override
     public void start(Stage stage) throws IOException {

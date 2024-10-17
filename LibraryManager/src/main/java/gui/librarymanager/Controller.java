@@ -27,7 +27,6 @@ public class Controller {
 
     @FXML
     public void displayBooks(ActionEvent event){
-        System.out.println("mata");
         LibraryManager.getLibrary().displayBooks();
     }
 }

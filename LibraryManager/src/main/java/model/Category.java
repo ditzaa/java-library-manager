@@ -7,10 +7,10 @@ public class Category {
     private String name;
     private int numberOfBooks;
 
-    public Category(List<Book> books, String name, int numberOfBooks) {
+    public Category(List<Book> books, String name) {
         this.books = books;
         this.name = name;
-        this.numberOfBooks = numberOfBooks;
+        this.numberOfBooks = 0;
     }
 
     public List<Book> getBooks() {

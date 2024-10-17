@@ -1,11 +1,12 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
     private String title;
-    private List<String> authors;
+    private List<String> authors = new ArrayList<>();
     private String genre;
     private LocalDate publicationDate;
     private LocalDate borrowedDate;
@@ -13,7 +14,9 @@ public class Book {
 
     public Book(String title, List<String> authors, String genre, LocalDate publicationDate) {
         this.title = title;
-        this.authors = authors;
+        for(String author : authors) {
+            this.authors.add(author);
+        }
         this.genre = genre;
         this.publicationDate = publicationDate;
         this.currentReader = "";

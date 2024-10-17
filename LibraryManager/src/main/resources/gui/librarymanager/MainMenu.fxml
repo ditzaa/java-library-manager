@@ -12,24 +12,24 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button fx:id="buttonAddBook" layoutX="322.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToAddBookScene" text="Adaugă carte">
+      <Button fx:id="buttonAddBook" layoutX="290.0" layoutY="146.0" mnemonicParsing="false" onAction="#switchToAddBookScene" prefHeight="31.0" prefWidth="143.0" text="Adaugă carte">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="buttonViewReports" layoutX="322.0" layoutY="339.0" mnemonicParsing="false" text="Vizualizarea raporte">
+      <Button fx:id="buttonViewReports" layoutX="290.0" layoutY="321.0" mnemonicParsing="false" text="Vizualizarea raporte">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="buttonSearchBook" layoutX="323.0" layoutY="207.0" mnemonicParsing="false" text="Împrumută carte">
+      <Button fx:id="buttonSearchBook" layoutX="290.0" layoutY="207.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Împrumută carte">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="buttonRemoveBook" layoutX="322.0" layoutY="266.0" mnemonicParsing="false" text="Șterge carte">
+      <Button fx:id="buttonRemoveBook" layoutX="292.0" layoutY="266.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Șterge carte">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Button>
       <Button fx:id="buttonPrintAllBooks" layoutX="65.0" layoutY="139.0" mnemonicParsing="false" onAction="#displayBooks" prefHeight="44.0" prefWidth="81.0" text="Carti" />
