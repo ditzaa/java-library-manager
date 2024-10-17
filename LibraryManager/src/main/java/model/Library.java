@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Library {
+public class Library implements Serializable {
     private List<Book> books;
     private Set<Category> categories;
 

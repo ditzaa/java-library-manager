@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book {
+public class Book implements Serializable {
     private String title;
     private List<String> authors = new ArrayList<>();
     private String genre;
