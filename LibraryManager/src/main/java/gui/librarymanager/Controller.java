@@ -25,6 +25,14 @@ public class Controller {
         }
     }
 
+    public void switchToRemoveBookScene(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("RemoveBookScene.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     public void displayBooks(ActionEvent event){
         LibraryManager.getLibrary().displayBooks();

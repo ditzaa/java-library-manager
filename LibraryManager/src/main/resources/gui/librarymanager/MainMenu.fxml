@@ -27,7 +27,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="buttonRemoveBook" layoutX="292.0" layoutY="266.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Șterge carte">
+      <Button fx:id="buttonRemoveBook" layoutX="292.0" layoutY="266.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="31.0" prefWidth="143.0" text="Șterge carte">
          <font>
             <Font size="15.0" />
          </font>
