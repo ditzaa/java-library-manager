@@ -1,7 +1,4 @@
-package model;
-
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+package com.librarymanagerapp.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -65,28 +62,7 @@ public class Book implements Serializable {
     public static void setID_BOOK(int bookId) {
         BOOK_ID = bookId;
     }
-/////////
-//    private StringProperty idBookProperty;
-//    public void setFirstName(String value) {
-//        firstNameProperty().set(value);
-//    }
-//    public String getFirstName() {
-//        return firstNameProperty().get();
-//    }
-//
-//    public StringProperty firstNameProperty() {
-//        if (idBookProperty == null) idBookProperty = new SimpleStringProperty(this, "idBookProperty");
-//        return idBookProperty;
-//    }
-//
-//    private StringProperty lastName;
-//    public void setLastName(String value) { lastNameProperty().set(value); }
-//    public String getLastName() { return lastNameProperty().get(); }
-//    public StringProperty lastNameProperty() {
-//        if (lastName == null) lastName = new SimpleStringProperty(this, "lastName");
-//        return lastName;
-//    }
-/////////
+
     @Override
     public String toString() {
         return "Book{" +

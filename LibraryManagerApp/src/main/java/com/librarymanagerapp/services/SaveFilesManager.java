@@ -1,11 +1,10 @@
-package services;
+package com.librarymanagerapp.services;
 
-import gui.librarymanager.LibraryManager;
-import model.Book;
-import model.Library;
+import com.librarymanagerapp.LibraryManager;
+import com.librarymanagerapp.model.Book;
+import com.librarymanagerapp.model.Library;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SaveFilesManager {
