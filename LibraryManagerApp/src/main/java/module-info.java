@@ -6,4 +6,6 @@ module com.librarymanagerapp {
 
     opens com.librarymanagerapp to javafx.fxml;
     exports com.librarymanagerapp;
+
+    opens com.librarymanagerapp.model to javafx.base;
 }
