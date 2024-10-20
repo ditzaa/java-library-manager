@@ -1,5 +1,6 @@
 package com.librarymanagerapp;
 
+import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Library;
 import com.librarymanagerapp.services.SaveFilesManager;
 import com.librarymanagerapp.util.InputValidator;
@@ -16,6 +17,7 @@ public class LibraryManager extends Application {
 
     private static Library library = SaveFilesManager.reloadLibraryBooks();
     private static InputValidator inputValidator = new InputValidator();
+    public static Book currentSelectedBook = new Book();
 
     public LibraryManager() throws FileNotFoundException {
     }
@@ -44,5 +46,13 @@ public class LibraryManager extends Application {
 
     public static Library getLibrary() {
         return library;
+    }
+
+    public static Book getCurrentSelectedBook() {
+        return currentSelectedBook;
+    }
+
+    public static void setCurrentSelectedBook(Book currentSelectedBook) {
+        LibraryManager.currentSelectedBook = currentSelectedBook;
     }
 }

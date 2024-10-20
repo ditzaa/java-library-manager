@@ -36,4 +36,13 @@ public class MainController {
     public void displayBooks(ActionEvent event){
         LibraryManager.getLibrary().displayBooks();
     }
+
+    @FXML
+    void onBookSearch(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("search-book-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
