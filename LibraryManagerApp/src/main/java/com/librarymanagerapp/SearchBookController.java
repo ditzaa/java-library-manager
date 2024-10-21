@@ -43,7 +43,6 @@ public class SearchBookController {
     @FXML
     void onSelectBook(MouseEvent event) {
         selectedBook =  tableViewBooks.getSelectionModel().getSelectedItem();
-        System.out.println(selectedBook);
     }
 
     //pt a cauta o carte dupa titlu - OK
@@ -69,12 +68,6 @@ public class SearchBookController {
             throw new RuntimeException(e);
         }
     }
-
-    //pt a deschide un nou view cu cartea respectiva
-//    @FXML
-//    void onSelectBookToDisplayDetails(MouseEvent event) {
-//
-//    }
 
     @FXML
     void onSelectBookToDisplayDetails(ActionEvent event) {
