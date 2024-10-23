@@ -13,7 +13,7 @@
       <Label layoutX="47.0" layoutY="102.0" text="Lista autori: " />
       <Label layoutX="88.0" layoutY="228.0" text="Gen:" />
       <Label layoutX="29.0" layoutY="305.0" text="Data publicării:" />
-      <Button fx:id="buttonEditBookInfo" layoutX="296.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Editează informații" />
+      <Button fx:id="buttonEditBookInfo" layoutX="296.0" layoutY="367.0" mnemonicParsing="false" onAction="#onBookEditOption" prefHeight="25.0" prefWidth="132.0" text="Editează informații" />
       <Button fx:id="buttonBorrowReturnBook" layoutX="503.0" layoutY="367.0" mnemonicParsing="false" onAction="#onBookStatusChange" prefHeight="25.0" prefWidth="125.0" text="Împrumută" />
       <Label layoutX="445.0" layoutY="103.0" text="Status: " />
       <Label layoutX="397.0" layoutY="173.0" text="Dată împrumut:" />

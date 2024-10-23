@@ -122,4 +122,13 @@ public class BookDetailsController {
             buttonBorrowReturnBook.setText("Împrumută");
         }
     }
+
+    @FXML
+    void onBookEditOption(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("edit-book-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
