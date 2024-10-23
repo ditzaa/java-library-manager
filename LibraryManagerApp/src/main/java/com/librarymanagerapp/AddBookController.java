@@ -78,6 +78,13 @@ public class AddBookController {
 
     @FXML
     public void onAddNewAuthor(ActionEvent event) {
+        if ("".equals(authorTextField.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Atenție");
+            alert.setHeaderText("Informații invalide");
+            alert.setContentText("Completează câmpul cu numele autorului corespunzător înainte de a-l adăuga.");
+            alert.showAndWait();
+        }
         String author = authorTextField.getText();
         authors.add(author);
         authorTextField.setText("");
