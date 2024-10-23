@@ -55,12 +55,40 @@ public class Book implements Serializable {
         return currentReader;
     }
 
+    public LocalDate getBorrowedDate() {
+        return borrowedDate;
+    }
+
     public boolean isBorrowed() {
         return borrowedDate != null;
     }
 
     public static void setID_BOOK(int bookId) {
         BOOK_ID = bookId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setCurrentReader(String currentReader) {
+        this.currentReader = currentReader;
+    }
+
+    public void setBorrowedDate(LocalDate borrowedDate) {
+        this.borrowedDate = borrowedDate;
     }
 
     @Override

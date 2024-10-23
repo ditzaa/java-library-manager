@@ -16,7 +16,7 @@
         <Label layoutX="31.0" layoutY="331.0" text="Data publicării" />
         <TextField fx:id="titleTextField" layoutX="133.0" layoutY="74.0" prefHeight="25.0" prefWidth="264.0" />
         <TextField fx:id="genreTextField" layoutX="133.0" layoutY="279.0" prefHeight="25.0" prefWidth="264.0" />
-        <DatePicker fx:id="publishDateTextField" layoutX="133.0" layoutY="327.0" prefWidth="264.0" promptText="MM/DD/YYYY" />
+        <DatePicker fx:id="publishDateTextField" layoutX="133.0" layoutY="327.0" prefHeight="25.0" prefWidth="264.0" promptText="MM/DD/YYYY" />
         <TextField fx:id="authorTextField" layoutX="133.0" layoutY="114.0" prefHeight="25.0" prefWidth="264.0" />
         <ListView fx:id="authorsListView" layoutX="133.0" layoutY="150.0" prefHeight="107.0" prefWidth="264.0" />
         <Label layoutX="31.0" layoutY="150.0" text="Listă autori" />

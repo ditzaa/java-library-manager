@@ -14,11 +14,11 @@
       <Label layoutX="88.0" layoutY="228.0" text="Gen:" />
       <Label layoutX="29.0" layoutY="305.0" text="Data publicării:" />
       <Button fx:id="buttonEditBookInfo" layoutX="296.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Editează informații" />
-      <Button fx:id="buttonBorrowReturnBook" layoutX="503.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Împrumută" />
+      <Button fx:id="buttonBorrowReturnBook" layoutX="503.0" layoutY="367.0" mnemonicParsing="false" onAction="#onBookStatusChange" prefHeight="25.0" prefWidth="125.0" text="Împrumută" />
       <Label layoutX="445.0" layoutY="103.0" text="Status: " />
       <Label layoutX="397.0" layoutY="173.0" text="Dată împrumut:" />
       <ListView fx:id="listViewAuthors" layoutX="124.0" layoutY="102.0" prefHeight="99.0" prefWidth="200.0" />
-      <Button fx:id="buttonBack" layoutX="86.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Înapoi" />
+      <Button fx:id="buttonBack" layoutX="86.0" layoutY="367.0" mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="25.0" prefWidth="125.0" text="Înapoi" />
       <Label fx:id="labelGenre" layoutX="125.0" layoutY="228.0" text="Label" />
       <Label fx:id="labelPublicationDate" layoutX="124.0" layoutY="305.0" text="Label" />
       <Label layoutX="403.0" layoutY="235.0" text="Dată restituire:" />
