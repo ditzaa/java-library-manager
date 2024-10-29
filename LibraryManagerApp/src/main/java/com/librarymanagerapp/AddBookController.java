@@ -48,6 +48,8 @@ public class AddBookController {
         if (InputValidator.validateBookAdd(title, authorsList, genre, publicationDate)) {
             Book newBook = new Book(title, authorsList, genre, publicationDate);
             LibraryManager.getLibrary().addBook(newBook);
+            LibraryManager.getLibrary().addAuthor(authors, newBook);
+
 
             titleTextField.setText("");
             genreTextField.setText("");
@@ -84,10 +86,11 @@ public class AddBookController {
             alert.setHeaderText("Informații invalide");
             alert.setContentText("Completează câmpul cu numele autorului corespunzător înainte de a-l adăuga.");
             alert.showAndWait();
+        } else {
+            String author = authorTextField.getText();
+            authors.add(author);
+            authorTextField.setText("");
         }
-        String author = authorTextField.getText();
-        authors.add(author);
-        authorTextField.setText("");
     }
 
     @FXML

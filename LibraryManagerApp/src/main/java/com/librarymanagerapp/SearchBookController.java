@@ -48,16 +48,28 @@ public class SearchBookController {
     //pt a cauta o carte dupa titlu - OK
     @FXML
     void onBookSearch(ActionEvent event) {
-        booksToSearch = FXCollections.observableArrayList();
-        String title = textFieldSearchBook.getText();
-        Library library = LibraryManager.getLibrary();
-        List<Book> libraryBooks = library.getBooks();
-        for(Book book : libraryBooks) {
-            if(title.equals(book.getTitle())) {
-                booksToSearch.add(book);
+        if ("".equals(textFieldSearchBook.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Atenție");
+            alert.setHeaderText("Informații invalide");
+            alert.setContentText("Completează câmpul cu titlul cărții corespunzător înainte de a căuta o carte.");
+            alert.showAndWait();
+        } else {
+            booksToSearch = FXCollections.observableArrayList();
+            String title = textFieldSearchBook.getText();
+            Library library = LibraryManager.getLibrary();
+            List<Book> libraryBooks = library.getBooks();
+            for(Book book : libraryBooks) {
+                if(title.equals(book.getTitle())) {
+                    booksToSearch.add(book);
+                }
+            }
+            if (booksToSearch.isEmpty()) {
+                tableViewBooks.setPlaceholder(new Label("Nici o carte cu acest titlu"));
+            } else {
+                tableViewBooks.setItems(booksToSearch);
             }
         }
-        tableViewBooks.setItems(booksToSearch);
     }
 
     @FXML

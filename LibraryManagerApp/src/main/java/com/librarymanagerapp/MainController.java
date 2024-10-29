@@ -45,4 +45,18 @@ public class MainController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    void onReportsMenu(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("generate-reports-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void displayAuthors(ActionEvent event) {
+        LibraryManager.getLibrary().displayAuthors();
+    }
 }

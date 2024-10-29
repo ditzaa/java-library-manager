@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.GenerateReportsController">
+   <children>
+      <Label layoutX="252.0" layoutY="26.0" text="Generare rapoarte" />
+      <Button fx:id="buttonAuthorReport" layoutX="196.0" layoutY="102.0" mnemonicParsing="false" onAction="#onAuthorReportClick" prefHeight="25.0" prefWidth="209.0" text="Carțile unui anumit autor" />
+      <Button fx:id="buttonGenreReport" layoutX="196.0" layoutY="170.0" mnemonicParsing="false" onAction="#onGenreReportClick" prefHeight="25.0" prefWidth="209.0" text="Cărți după un anumit gen" />
+      <Button fx:id="buttonBorrowDateReport" layoutX="196.0" layoutY="235.0" mnemonicParsing="false" onAction="#onBorrowDateReportClick" text="Cărți împrumutate la o anumită dată" />
+      <Button fx:id="buttonSwitchToMainMenu" layoutX="274.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Înapoi" />
+   </children>
+</AnchorPane>

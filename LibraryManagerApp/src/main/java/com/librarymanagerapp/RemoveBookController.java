@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RemoveBookController {
     @FXML
@@ -47,16 +48,29 @@ public class RemoveBookController {
     }
 
     public void searchBookToRemove() {
-        booksToRemove = FXCollections.observableArrayList();
-        String title = textFieldBookToDelete.getText();
-        Library library = LibraryManager.getLibrary();
-        List<Book> libraryBooks = library.getBooks();
-        for(Book book : libraryBooks) {
-            if(title.equals(book.getTitle())) {
-                booksToRemove.add(book);
+        if ("".equals(textFieldBookToDelete.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Atenție");
+            alert.setHeaderText("Informații invalide");
+            alert.setContentText("Completează câmpul corespunzător titlului înainte de a căuta o carte.");
+            alert.showAndWait();
+        } else {
+            booksToRemove = FXCollections.observableArrayList();
+            String title = textFieldBookToDelete.getText();
+            Library library = LibraryManager.getLibrary();
+            List<Book> libraryBooks = library.getBooks();
+            for(Book book : libraryBooks) {
+                if(title.equals(book.getTitle())) {
+                    booksToRemove.add(book);
+                }
+            }
+
+            if (booksToRemove.isEmpty()) {
+                tableViewBooksToDelete.setPlaceholder(new Label("Nici o carte cu acest titlu"));
+            } else {
+                tableViewBooksToDelete.setItems(booksToRemove);
             }
         }
-        tableViewBooksToDelete.setItems(booksToRemove);
     }
 
     @FXML
@@ -66,6 +80,17 @@ public class RemoveBookController {
         textFieldBookToDelete.setText("");
         booksToRemove = FXCollections.observableArrayList();
         tableViewBooksToDelete.setItems(booksToRemove);
+
+        //delete book from authors map (author - list<Book>)
+        //1. Get the book to remove + its authors
+        List<String> authorsOfRemovedBook = bookToRemove.getAuthors();
+        Library library = LibraryManager.getLibrary();
+        Map<String, List<Book>> authorsMap = library.getAuthorsMap();
+        //2. for each author remove the book from its books list
+        for(String author : authorsOfRemovedBook) {
+            List<Book> listOfBooks = authorsMap.get(author);
+            listOfBooks.remove(bookToRemove);
+        }
     }
 
     @FXML

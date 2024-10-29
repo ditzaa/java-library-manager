@@ -1,6 +1,7 @@
 package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
+import com.librarymanagerapp.model.Library;
 import com.librarymanagerapp.util.InputValidator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class EditBookController {
 
@@ -38,6 +40,8 @@ public class EditBookController {
     private TextField titleTextField;
     @FXML
     private Label labelEditConfirmation;
+    @FXML
+    private TextField readerTextField;
 
     private Book selectedBook = LibraryManager.getCurrentSelectedBook();
     private ObservableList<String> authors = FXCollections.observableArrayList();
@@ -51,10 +55,13 @@ public class EditBookController {
         authorsListView.setItems(authors);
         genreTextField.setText(selectedBook.getGenre());
         publishDateTextField.setValue(selectedBook.getPublicationDate());
+        readerTextField.setText(selectedBook.getCurrentReader());
     }
 
     @FXML
     void onEditBook(ActionEvent event) {
+        //modifica hashmap-ul cu autori
+
         String title = titleTextField.getText();
         List<String> authorsList = new ArrayList<>();
         for (String author : authors) {
@@ -62,6 +69,7 @@ public class EditBookController {
         }
         String genre = genreTextField.getText();
         LocalDate publicationDate = publishDateTextField.getValue();
+        String reader = readerTextField.getText();
         if (InputValidator.validateBookAdd(title, authorsList, genre, publicationDate)) {
             List<Book> libraryBooks = LibraryManager.getLibrary().getBooks();
             for (Book book : libraryBooks) {
@@ -70,6 +78,7 @@ public class EditBookController {
                     book.setAuthors(authorsList);
                     book.setGenre(genre);
                     book.setPublicationDate(publicationDate);
+                    book.setCurrentReader(reader);
                 }
             }
 
@@ -103,12 +112,30 @@ public class EditBookController {
         String author = authorTextField.getText();
         authors.add(author);
         authorTextField.setText("");
+        LibraryManager.getLibrary().addAuthor(authors, selectedBook);
     }
 
     @FXML
     void onRemoveAuthor(ActionEvent event) {
         ObservableList<String> authorsToDelete = authorsListView.getSelectionModel().getSelectedItems();
+
+        System.out.println( "ObservableList<String> authorsToDelete: " + authorsToDelete);
+        List<String> removedAuthorList = authorsListView.getSelectionModel().getSelectedItems();
+        //name of the author to be removed
+        String removedAuthor = removedAuthorList.get(0);
+
         authors.removeAll(authorsToDelete);
+        // hashmap authors with books in the library
+        Map<String, List<Book>> authorsMap = LibraryManager.getLibrary().getAuthorsMap();
+        List<Book> booksOfRemovedAuthor = authorsMap.get(removedAuthor);
+
+        // delete the book from the authors hashmap
+        for(Book book : booksOfRemovedAuthor){
+            if (selectedBook.getTitle().equals(book.getTitle())) {
+                booksOfRemovedAuthor.remove(book);
+                break;
+            }
+        }
     }
 
     @FXML

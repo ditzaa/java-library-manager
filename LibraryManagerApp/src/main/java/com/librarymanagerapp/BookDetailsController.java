@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -110,6 +107,11 @@ public class BookDetailsController {
             labelReturnDate.setText(borrowedDate.plusDays(21).toString());
             textFieldCurrentReader.setEditable(false);
             buttonBorrowReturnBook.setText("Returnează");
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmare");
+            alert.setHeaderText("Împrumutul cărții a fost realizat cu succes!");
+            alert.showAndWait();
         } else {
             //returneaza cartea
             labelStatus.setText("Disponibilă");
