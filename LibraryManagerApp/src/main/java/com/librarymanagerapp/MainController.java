@@ -59,4 +59,9 @@ public class MainController {
     void displayAuthors(ActionEvent event) {
         LibraryManager.getLibrary().displayAuthors();
     }
+
+    @FXML
+    void onResetLibraryDataClicked(ActionEvent event) {
+        LibraryManager.resetLibraryData();
+    }
 }

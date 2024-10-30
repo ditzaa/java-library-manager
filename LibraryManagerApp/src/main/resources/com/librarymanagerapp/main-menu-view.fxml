@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="730.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.MainController">
   <children>
     <Label layoutX="301.0" layoutY="50.0" text="BookFlow">
       <font>
@@ -18,5 +18,6 @@
     <Button fx:id="buttonRemoveBook" layoutX="292.0" layoutY="266.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="31.0" prefWidth="143.0" text="Șterge carte" />
     <Button fx:id="buttonPrintAllBooks" layoutX="65.0" layoutY="139.0" mnemonicParsing="false" onAction="#displayBooks" prefHeight="44.0" prefWidth="81.0" text="Carti" />
       <Button layoutX="65.0" layoutY="190.0" mnemonicParsing="false" onAction="#displayAuthors" prefHeight="44.0" prefWidth="81.0" text="Autori" />
+      <Button layoutX="65.0" layoutY="244.0" mnemonicParsing="false" onAction="#onResetLibraryDataClicked" prefHeight="44.0" prefWidth="81.0" text="Reset" />
   </children>
 </AnchorPane>

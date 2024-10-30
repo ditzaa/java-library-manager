@@ -1,0 +1,9 @@
+Emily Clark - Raport de Autor
+-----------------------------------------------------------------------------
+Numărul de cărți scrise de autor în bibliotecă: 2
+
+Nr   Titlu                              Gen                   Data Publicării
+-----------------------------------------------------------------------------
+1    Data Structures                    Computer Science      2019-10-10
+2    Algorithms                         Computer Science      2018-12-25
+-----------------------------------------------------------------------------
