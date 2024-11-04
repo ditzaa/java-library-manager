@@ -79,7 +79,7 @@ public class AuthorReportController {
                     fileWriter.write(delimitatorLine);
 
                     Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Creare raport");
                         alert.setHeaderText("Raport creat cu succes!");
                         alert.showAndWait();

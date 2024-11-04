@@ -141,7 +141,6 @@ public class EditBookController {
     void onRemoveAuthor(ActionEvent event) {
         ObservableList<String> authorsToDelete = authorsListView.getSelectionModel().getSelectedItems();
 
-        System.out.println( "ObservableList<String> authorsToDelete: " + authorsToDelete);
         List<String> removedAuthorList = authorsListView.getSelectionModel().getSelectedItems();
         //name of the author to be removed
         String removedAuthor = removedAuthorList.get(0);

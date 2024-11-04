@@ -5,8 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.PublicationDateReportController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.BorrowDateReportController">
    <children>
       <Label layoutX="127.0" layoutY="44.0" text="Creare raport al cărților împrumutate într-o anumită perioadă" />
       <ComboBox fx:id="comboBoxMonth" layoutX="128.0" layoutY="88.0" prefHeight="25.0" prefWidth="146.0" promptText="Luna" />

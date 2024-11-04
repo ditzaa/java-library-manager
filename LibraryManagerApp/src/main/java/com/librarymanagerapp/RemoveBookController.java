@@ -99,6 +99,10 @@ public class RemoveBookController {
         for (Category category : categories) {
             if (genre.equals(category.getName())) {
                 category.removeBook(bookToRemove);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Confirmare");
+                alert.setHeaderText("Ștergea cărții din sistem a fost realizat cu succes!");
+                alert.showAndWait();
             }
         }
     }

@@ -79,7 +79,7 @@ public class BookDetailsController {
             textFieldCurrentReader.setEditable(true);
             textFieldCurrentReader.setText("");
             buttonBorrowReturnBook.setText("Împrumută");
-        } else /*if ( != "" "".equals(selectedBook.getCurrentReader()))*/ {
+        } else {
             //imprumuta cartea
             labelStatus.setText("Împrumutată");
             LocalDate borrowedDate = selectedBook.getBorrowedDate();
@@ -117,8 +117,7 @@ public class BookDetailsController {
             YearMonth yearMonthBorrowedDate = YearMonth.of(borrowedDate.getYear(), borrowedDate1.getMonth());
             library.addBorrowedDate(yearMonthBorrowedDate, selectedBook);
 
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Confirmare");
             alert.setHeaderText("Împrumutul cărții a fost realizat cu succes!");
             alert.showAndWait();

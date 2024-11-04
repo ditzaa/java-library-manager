@@ -1,9 +1,10 @@
 Noiembrie 2024 - Raport al Cărților Împrumutate
-------------------------------------------------------------------------------------------
-Numărul de cărți împrumutate: 2
+----------------------------------------------------------------------------------------------------------------------------
+Numărul de cărți împrumutate: 3
 
-Nr.   Titlu                                    Autor                       Gen
-------------------------------------------------------------------------------------------
-1     Data Structures                          Emily Clark               Computer Science         
-2     Python Crash Course                      Eric Matthes              Programming              
-------------------------------------------------------------------------------------------
+Nr.   Titlu                                    Autor                            Gen                              Cititor
+----------------------------------------------------------------------------------------------------------------------------
+1     Amintiri din Copilărie                   Ion Creangă                      Povestiri                        Mitu Adrian              
+2     Machine Learning                         Andrew Ng                        AI                               Mitu Ioana               
+3     Data Structures                          Emily Clark                      Computer Science                 Militaru Felicia         
+----------------------------------------------------------------------------------------------------------------------------

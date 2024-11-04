@@ -16,16 +16,14 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class PublicationDateReportController {
+public class BorrowDateReportController {
 
     @FXML
     private ComboBox<String> comboBoxMonth;
@@ -58,7 +56,7 @@ public class PublicationDateReportController {
         Integer selectedYear = comboBoxYear.getValue();
 
         if (selectedMonth == null || selectedYear == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Atenție");
             alert.setHeaderText("Informații lipsă");
             alert.setContentText("Selectați luna și anul pentru generarea raportului.");
@@ -114,28 +112,27 @@ public class PublicationDateReportController {
             new Thread(() -> {
                 try (FileWriter fileWriter = new FileWriter(fileReport)) {
                     fileWriter.write(selectedMonth + " " + selectedYear + " - Raport al Cărților Împrumutate");
-                    String delimitatorLine = "\n--------------------------------------------" +
-                            "----------------------------------------------";
+                    String delimitatorLine = "\n----------------------------------------------------------------------------------------------------------------------------";
                     fileWriter.write(delimitatorLine);
                     fileWriter.write("\nNumărul de cărți împrumutate: " + numberOfBooks + "\n");
-                    fileWriter.write("\nNr.   Titlu                                    Autor" +
-                            "                       Gen");
+                    fileWriter.write("\nNr.   Titlu                                    Autor                            Gen                              Cititor");
                     fileWriter.write(delimitatorLine);
 
                     int indexBooks = 1;
                     for (Book book : booksListOfSelectedPeriod) {
-                        fileWriter.write(String.format("\n%-5d %-40s %-25s %-25s",
+                        fileWriter.write(String.format("\n%-5d %-40s %-32s %-32s %-25s",
                                 indexBooks,
                                 book.getTitle(),
                                 book.getAuthors().get(0),
-                                book.getGenre()));
+                                book.getGenre(),
+                                book.getCurrentReader()));
                         indexBooks++;
                     }
 
                     fileWriter.write(delimitatorLine);
 
                     Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Creare raport");
                         alert.setHeaderText("Raport creat cu succes!");
                         alert.showAndWait();
