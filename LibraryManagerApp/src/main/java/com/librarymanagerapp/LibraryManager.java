@@ -1,6 +1,7 @@
 package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
+import com.librarymanagerapp.model.Category;
 import com.librarymanagerapp.model.Library;
 import com.librarymanagerapp.services.SaveFilesManager;
 import com.librarymanagerapp.util.InputValidator;
@@ -12,7 +13,10 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LibraryManager extends Application {
     private static Stage mainStage;
@@ -59,40 +63,66 @@ public class LibraryManager extends Application {
     }
 
     public static void resetLibraryData() {
-        // Clear existing data
-        library.getBooks().clear();
-        library.getAuthorsMap().clear();
+        synchronized (library) {
+            if (library.getBooks() != null) {
+                library.getBooks().clear();
+            }
+            if (library.getAuthorsMap() != null) {
+                library.getAuthorsMap().clear();
+            }
+            if (library.getCategories() != null) {
+                library.getCategories().clear();
+            }
+        }
 
         // Define sample books and authors
-        List<Book> sampleBooks = List.of(
-                new Book("Java Fundamentals", List.of("John Doe", "Jane Smith"), "Programming", LocalDate.of(2020, 5, 1)),
-                new Book("Advanced Java", List.of("John Doe"), "Programming", LocalDate.of(2021, 8, 15)),
-                new Book("Data Structures", List.of("Emily Clark"), "Computer Science", LocalDate.of(2019, 10, 10)),
-                new Book("Algorithms", List.of("Emily Clark", "James Lee"), "Computer Science", LocalDate.of(2018, 12, 25)),
-                new Book("Machine Learning", List.of("Andrew Ng", "Jane Smith"), "AI", LocalDate.of(2022, 3, 18)),
-                new Book("Deep Learning", List.of("Ian Goodfellow"), "AI", LocalDate.of(2018, 7, 22)),
-                new Book("Artificial Intelligence", List.of("Russell Stuart", "Jane Smith"), "AI", LocalDate.of(2020, 11, 30)),
-                new Book("Clean Code", List.of("Robert Martin"), "Programming", LocalDate.of(2008, 6, 17)),
-                new Book("The Pragmatic Programmer", List.of("Andy Hunt", "Dave Thomas"), "Programming", LocalDate.of(1999, 10, 30)),
-                new Book("Design Patterns", List.of("Erich Gamma", "Richard Helm", "Ralph Johnson"), "Software Design", LocalDate.of(1994, 10, 21)),
-                // Add more books to reach 20 total
-                new Book("Effective Java", List.of("Joshua Bloch"), "Programming", LocalDate.of(2018, 1, 6)),
-                new Book("Refactoring", List.of("Martin Fowler"), "Programming", LocalDate.of(1999, 6, 28)),
-                new Book("Java Concurrency", List.of("Brian Goetz"), "Programming", LocalDate.of(2006, 5, 19)),
-                new Book("Introduction to Algorithms", List.of("Thomas Cormen"), "Algorithms", LocalDate.of(2009, 7, 25)),
-                new Book("Programming Pearls", List.of("Jon Bentley"), "Algorithms", LocalDate.of(1986, 10, 8)),
-                new Book("Computer Networks", List.of("Andrew S. Tanenbaum"), "Networks", LocalDate.of(2010, 11, 1)),
-                new Book("Operating System Concepts", List.of("Abraham Silberschatz"), "Operating Systems", LocalDate.of(2013, 2, 18)),
-                new Book("Computer Architecture", List.of("John Hennessy", "David Patterson"), "Hardware", LocalDate.of(2017, 9, 16)),
-                new Book("Python Crash Course", List.of("Eric Matthes"), "Programming", LocalDate.of(2016, 5, 3)),
-                new Book("JavaScript: The Good Parts", List.of("Douglas Crockford"), "Programming", LocalDate.of(2008, 5, 1))
+        List<Book> sampleBooks = Arrays.asList(
+                new Book("Java Fundamentals", Arrays.asList("John Doe", "Jane Smith"), "Programming", LocalDate.of(2020, 5, 1)),
+                new Book("Advanced Java", Arrays.asList("John Doe"), "Programming", LocalDate.of(2021, 8, 15)),
+                new Book("Data Structures", Arrays.asList("Emily Clark"), "Computer Science", LocalDate.of(2019, 10, 10)),
+                new Book("Algorithms", Arrays.asList("Emily Clark", "James Lee"), "Computer Science", LocalDate.of(2018, 12, 25)),
+                new Book("Machine Learning", Arrays.asList("Andrew Ng", "Jane Smith"), "AI", LocalDate.of(2022, 3, 18)),
+                new Book("Deep Learning", Arrays.asList("Ian Goodfellow"), "AI", LocalDate.of(2018, 7, 22)),
+                new Book("Artificial Intelligence", Arrays.asList("Russell Stuart", "Jane Smith"), "AI", LocalDate.of(2020, 11, 30)),
+                new Book("Clean Code", Arrays.asList("Robert Martin"), "Programming", LocalDate.of(2008, 6, 17)),
+                new Book("The Pragmatic Programmer", Arrays.asList("Andy Hunt", "Dave Thomas"), "Programming", LocalDate.of(1999, 10, 30)),
+                new Book("Design Patterns", Arrays.asList("Erich Gamma", "Richard Helm", "Ralph Johnson"), "Software Design", LocalDate.of(1994, 10, 21)),
+                new Book("Effective Java", Arrays.asList("Joshua Bloch"), "Programming", LocalDate.of(2018, 1, 6)),
+                new Book("Refactoring", Arrays.asList("Martin Fowler"), "Programming", LocalDate.of(1999, 6, 28)),
+                new Book("Java Concurrency", Arrays.asList("Brian Goetz"), "Programming", LocalDate.of(2006, 5, 19)),
+                new Book("Introduction to Algorithms", Arrays.asList("Thomas Cormen"), "Algorithms", LocalDate.of(2009, 7, 25)),
+                new Book("Programming Pearls", Arrays.asList("Jon Bentley"), "Algorithms", LocalDate.of(1986, 10, 8)),
+                new Book("Computer Networks", Arrays.asList("Andrew S. Tanenbaum"), "Networks", LocalDate.of(2010, 11, 1)),
+                new Book("Operating System Concepts", Arrays.asList("Abraham Silberschatz"), "Operating Systems", LocalDate.of(2013, 2, 18)),
+                new Book("Computer Architecture", Arrays.asList("John Hennessy", "David Patterson"), "Hardware", LocalDate.of(2017, 9, 16)),
+                new Book("Python Crash Course", Arrays.asList("Eric Matthes"), "Programming", LocalDate.of(2016, 5, 3)),
+                new Book("JavaScript: The Good Parts", Arrays.asList("Douglas Crockford"), "Programming", LocalDate.of(2008, 5, 1))
         );
 
-        // Add sample books to the library
+        // Track unique categories
+        Set<String> uniqueCategories = new HashSet<>();
+
+        // Add sample books to the library and manage categories
         for (Book book : sampleBooks) {
             library.addBook(book);
             library.addAuthor(book.getAuthors(), book);
+
+            // Add book to category
+            String genre = book.getGenre();
+            if (!uniqueCategories.contains(genre)) {
+                Category newCategory = new Category(genre);
+                newCategory.addBook(book);
+                library.getCategories().add(newCategory);
+                uniqueCategories.add(genre);
+            } else {
+                // Find existing category and add book
+                for (Category category : library.getCategories()) {
+                    if (category.getName().equals(genre)) {
+                        category.addBook(book);
+                        break;
+                    }
+                }
+            }
         }
     }
-
 }

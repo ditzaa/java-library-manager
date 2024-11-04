@@ -1,6 +1,7 @@
 package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
+import com.librarymanagerapp.model.Category;
 import com.librarymanagerapp.util.InputValidator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +15,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public class AddBookController {
 
@@ -50,13 +52,27 @@ public class AddBookController {
             LibraryManager.getLibrary().addBook(newBook);
             LibraryManager.getLibrary().addAuthor(authors, newBook);
 
-
             titleTextField.setText("");
             genreTextField.setText("");
             publishDateTextField.setValue(null);
             authorsListView.getItems().clear();
 
-            labelAddConfirmation.setText("Carte adaugata cu succes!");
+            Set<Category> categories = LibraryManager.getLibrary().getCategories();
+            boolean categoryNotExisting = true;
+            for (Category category : categories) {
+                if (genre.equals(category.getName())) {
+                    categoryNotExisting = false;
+                    category.addBook(newBook);
+                }
+            }
+
+            if (categoryNotExisting) {
+                Category newCategory = new Category(genre);
+                newCategory.addBook(newBook);
+                categories.add(newCategory);
+            }
+
+            labelAddConfirmation.setText("Carte adaugată cu succes!");
             labelAddConfirmation.setVisible(true);
 
             Timeline timeline = new Timeline(new KeyFrame(

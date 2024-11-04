@@ -30,7 +30,11 @@ public class GenerateReportsController {
 
     @FXML
     void onGenreReportClick(ActionEvent event) {
-
+        try {
+            LibraryManager.switchScene("categories-report-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void switchToMainMenu(ActionEvent event) {

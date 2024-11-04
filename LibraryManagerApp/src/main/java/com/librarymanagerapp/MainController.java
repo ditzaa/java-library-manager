@@ -1,5 +1,6 @@
 package com.librarymanagerapp;
 
+import com.librarymanagerapp.model.Category;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -8,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class MainController {
     @FXML
@@ -34,6 +36,7 @@ public class MainController {
 
     @FXML
     public void displayBooks(ActionEvent event){
+        System.out.println();
         LibraryManager.getLibrary().displayBooks();
     }
 
@@ -57,11 +60,21 @@ public class MainController {
 
     @FXML
     void displayAuthors(ActionEvent event) {
+        System.out.println();
         LibraryManager.getLibrary().displayAuthors();
     }
 
     @FXML
     void onResetLibraryDataClicked(ActionEvent event) {
         LibraryManager.resetLibraryData();
+    }
+
+    @FXML
+    void displayCategories(ActionEvent event) {
+        Set<Category> categories = LibraryManager.getLibrary().getCategories();
+        System.out.println();
+        for(Category category : categories) {
+            System.out.println(category.toString());
+        }
     }
 }

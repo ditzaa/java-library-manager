@@ -1,6 +1,7 @@
 package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
+import com.librarymanagerapp.model.Category;
 import com.librarymanagerapp.model.Library;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class RemoveBookController {
     @FXML
@@ -90,6 +92,14 @@ public class RemoveBookController {
         for(String author : authorsOfRemovedBook) {
             List<Book> listOfBooks = authorsMap.get(author);
             listOfBooks.remove(bookToRemove);
+        }
+
+        Set<Category> categories = LibraryManager.getLibrary().getCategories();
+        String genre = bookToRemove.getGenre();
+        for (Category category : categories) {
+            if (genre.equals(category.getName())) {
+                category.removeBook(bookToRemove);
+            }
         }
     }
 

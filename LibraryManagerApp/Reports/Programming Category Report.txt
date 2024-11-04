@@ -1,0 +1,20 @@
+Raport Categorie Programming
+
+--------------------------------------------------------------------------------------------------------------
+Numărul de cărți: 9
+
+--------------------------------------------------------------------------------------------------------------
+Nr.   Titlu                                              Autori                                   Data Publicării
+
+--------------------------------------------------------------------------------------------------------------
+1     Java Fundamentals                                  John Doe, Jane Smith                     01.05.2020
+2     Advanced Java                                      John Doe                                 15.08.2021
+3     Clean Code                                         Robert Martin                            17.06.2008
+4     The Pragmatic Programmer                           Andy Hunt, Dave Thomas                   30.10.1999
+5     Effective Java                                     Joshua Bloch                             06.01.2018
+6     Refactoring                                        Martin Fowler                            28.06.1999
+7     Java Concurrency                                   Brian Goetz                              19.05.2006
+8     Python Crash Course                                Eric Matthes                             03.05.2016
+9     JavaScript: The Good Parts                         Douglas Crockford                        01.05.2008
+
+--------------------------------------------------------------------------------------------------------------

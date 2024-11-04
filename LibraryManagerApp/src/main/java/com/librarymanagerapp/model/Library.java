@@ -7,12 +7,11 @@ import java.util.stream.Collectors;
 
 public class Library implements Serializable {
     private List<Book> books;
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
     private Map<String, List<Book>> authorsMap = new HashMap<>();
 
     public Library() {
         books = new ArrayList<>();
-        categories = new TreeSet<Category>();
     }
 
     public List<Book> getBooks() {

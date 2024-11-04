@@ -1,6 +1,7 @@
 package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
+import com.librarymanagerapp.model.Category;
 import com.librarymanagerapp.model.Library;
 import com.librarymanagerapp.util.InputValidator;
 import javafx.animation.KeyFrame;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EditBookController {
 
@@ -61,7 +63,6 @@ public class EditBookController {
     @FXML
     void onEditBook(ActionEvent event) {
         //modifica hashmap-ul cu autori
-
         String title = titleTextField.getText();
         List<String> authorsList = new ArrayList<>();
         for (String author : authors) {
@@ -76,6 +77,27 @@ public class EditBookController {
                 if (book.getTitle().equals(selectedBook.getTitle())) {
                     book.setTitle(title);
                     book.setAuthors(authorsList);
+
+                    if (!genre.equals(book.getGenre())) {
+                        String oldGenre = book.getGenre();
+                        Set<Category> categories = LibraryManager.getLibrary().getCategories();
+                        boolean categoryExists = false;
+                        for (Category category : categories) {
+                            if (genre.equals(category.getName())) {
+                                categoryExists = true;
+                                category.addBook(book);
+                            } else if (oldGenre.equals(category.getName())){
+                                category.removeBook(book);
+                            }
+                        }
+
+                        if (!categoryExists) {
+                            Category newCategory = new Category(genre);
+                            newCategory.addBook(book);
+                            categories.add(newCategory);
+                        }
+                    }
+
                     book.setGenre(genre);
                     book.setPublicationDate(publicationDate);
                     book.setCurrentReader(reader);

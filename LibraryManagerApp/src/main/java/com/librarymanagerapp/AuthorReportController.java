@@ -2,6 +2,7 @@ package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Library;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,48 +46,50 @@ public class AuthorReportController {
         FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files",
                 "*.*");
 
+        Stage stageFileSave = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Alege locul de salvare al fișierului");
+        fileChooser.setInitialFileName(fileName);
+        fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
+        fileChooser.setInitialDirectory(new File("./Reports"));
+        stageFileSave.setResizable(true);
+        File fileReport = fileChooser.showSaveDialog(stageFileSave);
 
-        try {
-            Stage stageFileSave = new Stage();
-            //Scene sceneFileSave = new Scene(new AnchorPane());
+        if (fileReport != null) {
+            new Thread(() -> {
+                try (FileWriter fileWriter = new FileWriter(fileReport)) {
+                    fileWriter.write(selectedAuthor + " - Raport de Autor");
+                    String delimitatorLine = "\n--------------------------------------------" +
+                            "----------------------------------------------";
+                    fileWriter.write(delimitatorLine);
+                    fileWriter.write("\nNumărul de cărți scrise de autor în bibliotecă: " + numberOfBooks + "\n");
+                    fileWriter.write("\nNr.   Titlu                                    Gen" +
+                            "                       Data Publicării");
+                    fileWriter.write(delimitatorLine);
 
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Alege locul de salvare al fișierului");
-            fileChooser.setInitialFileName(fileName);
-            fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
-            fileChooser.setInitialDirectory(new File("./Reports"));
+                    int indexBooks = 1;
+                    for (Book book : booksListOfSelectedAuthor) {
+                        fileWriter.write(String.format("\n%-5d %-40s %-25s %s",
+                                indexBooks,
+                                book.getTitle(),
+                                book.getGenre(),
+                                book.getPublicationDate()));
+                        indexBooks++;
+                    }
+                    fileWriter.write(delimitatorLine);
 
-            //stageFileSave.setScene(sceneFileSave);
-            stageFileSave.setResizable(true);
-            File fileReport = fileChooser.showSaveDialog(stageFileSave);
+                    // Afișare alert pe JavaFX Application Thread
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Creare raport");
+                        alert.setHeaderText("Raport creat cu succes!");
+                        alert.showAndWait();
+                    });
 
-            if (fileReport != null) {
-                FileWriter fileWriter = new FileWriter(fileReport);
-                fileWriter.write(selectedAuthor + " - Raport de Autor");
-                fileWriter.write("\n-----------------------------------------------------------------------------");
-                fileWriter.write("\nNumărul de cărți scrise de autor în bibliotecă: " + numberOfBooks + "\n");
-                fileWriter.write("\nNr.   Titlu                              Gen                   Data Publicării");
-                fileWriter.write("\n-----------------------------------------------------------------------------");
-
-                int indexBooks = 1;
-                for (Book book : booksListOfSelectedAuthor) {
-                    fileWriter.write(String.format("\n%-4d %-34s %-21s %s",
-                            indexBooks,
-                            book.getTitle(),
-                            book.getGenre(),
-                            book.getPublicationDate()));
-                    indexBooks++;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                fileWriter.write("\n-----------------------------------------------------------------------------");
-                fileWriter.close();
-
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Creare raport");
-                alert.setHeaderText("Raport creat cu succes!");
-                alert.showAndWait();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            }).start();
         }
     }
 
@@ -100,7 +103,6 @@ public class AuthorReportController {
             alert.showAndWait();
         } else {
             authors = FXCollections.observableArrayList();
-            String title = textFieldAuthorName.getText();
             Library library = LibraryManager.getLibrary();
             authorsMap = library.getAuthorsMap();
             String authorName = textFieldAuthorName.getText();
@@ -110,6 +112,7 @@ public class AuthorReportController {
             }
 
             if (authors.isEmpty()) {
+                listViewAuthors.setItems(null);
                 listViewAuthors.setPlaceholder(new Label("Nici un autor cu acest nume"));
             } else {
                 listViewAuthors.setItems(authors);
