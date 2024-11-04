@@ -1,6 +1,7 @@
 package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
+import com.librarymanagerapp.model.Library;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,7 +10,9 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
+import java.util.Map;
 
 public class BookDetailsController {
 
@@ -36,9 +39,11 @@ public class BookDetailsController {
     @FXML
     private TextField textFieldCurrentReader;
 
+    Library library = LibraryManager.getLibrary();
     private Book selectedBook = LibraryManager.getCurrentSelectedBook();
     private ObservableList<String> authors = FXCollections.observableArrayList();
     private List<String> authorsSelectedBook = selectedBook.getAuthors();
+    Map<YearMonth, List<Book>> monthsYearsMap = LibraryManager.getLibrary().getMonthsYearsMap();
 
     public void initialize() {
         labelBookTitle.setText(selectedBook.getTitle());
@@ -107,6 +112,11 @@ public class BookDetailsController {
             labelReturnDate.setText(borrowedDate.plusDays(21).toString());
             textFieldCurrentReader.setEditable(false);
             buttonBorrowReturnBook.setText("Returnează");
+
+            LocalDate borrowedDate1 = selectedBook.getBorrowedDate();
+            YearMonth yearMonthBorrowedDate = YearMonth.of(borrowedDate.getYear(), borrowedDate1.getMonth());
+            library.addBorrowedDate(yearMonthBorrowedDate, selectedBook);
+
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmare");

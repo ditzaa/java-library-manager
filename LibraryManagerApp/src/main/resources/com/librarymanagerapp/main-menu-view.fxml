@@ -19,6 +19,7 @@
     <Button fx:id="buttonPrintAllBooks" layoutX="65.0" layoutY="139.0" mnemonicParsing="false" onAction="#displayBooks" prefHeight="44.0" prefWidth="81.0" text="Carti" />
       <Button layoutX="65.0" layoutY="190.0" mnemonicParsing="false" onAction="#displayAuthors" prefHeight="44.0" prefWidth="81.0" text="Autori" />
       <Button layoutX="65.0" layoutY="244.0" mnemonicParsing="false" onAction="#onResetLibraryDataClicked" prefHeight="44.0" prefWidth="81.0" text="Reset" />
-      <Button layoutX="65.0" layoutY="299.0" mnemonicParsing="false" onAction="#displayCategories" prefHeight="44.0" prefWidth="81.0" text="Categories" />
+      <Button layoutX="65.0" layoutY="299.0" mnemonicParsing="false" onAction="#displayCategories" prefHeight="44.0" prefWidth="81.0" text="Categorii" />
+      <Button layoutX="65.0" layoutY="352.0" mnemonicParsing="false" onAction="#printMonthsYearsMap" prefHeight="44.0" prefWidth="81.0" text="Luna-An" />
   </children>
 </AnchorPane>

@@ -1,7 +1,7 @@
 package com.librarymanagerapp.model;
 
-
 import java.io.Serializable;
+import java.time.YearMonth;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,6 +9,7 @@ public class Library implements Serializable {
     private List<Book> books;
     private Set<Category> categories = new HashSet<>();
     private Map<String, List<Book>> authorsMap = new HashMap<>();
+    private Map<YearMonth, List<Book>> monthsYearsMap = new HashMap<>();
 
     public Library() {
         books = new ArrayList<>();
@@ -30,6 +31,10 @@ public class Library implements Serializable {
         return books.stream()
                 .filter(book -> book.getGenre().equalsIgnoreCase(genre))
                 .collect(Collectors.toList());
+    }
+
+    public Map<YearMonth, List<Book>> getMonthsYearsMap() {
+        return monthsYearsMap;
     }
 
     public Book getBookByIndex(int index) {
@@ -79,6 +84,16 @@ public class Library implements Serializable {
             for(Book book : booksList) {
                 System.out.println("- " + book.toString());
             }
+        }
+    }
+
+    public void addBorrowedDate(YearMonth yearMonth, Book book) {
+        if (monthsYearsMap.containsKey(yearMonth)) {
+            monthsYearsMap.get(yearMonth).add(book);
+        } else {
+            List<Book> booksList = new ArrayList<>();
+            booksList.add(book);
+            monthsYearsMap.put(yearMonth, booksList);
         }
     }
 }

@@ -1,10 +1,15 @@
 package com.librarymanagerapp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.time.Year;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GenerateReportsController {
     @FXML
@@ -25,7 +30,11 @@ public class GenerateReportsController {
 
     @FXML
     void onBorrowDateReportClick(ActionEvent event) {
-
+        try {
+            LibraryManager.switchScene("publication-date-report-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

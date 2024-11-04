@@ -1,5 +1,6 @@
 package com.librarymanagerapp;
 
+import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Category;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class MainController {
@@ -75,6 +79,18 @@ public class MainController {
         System.out.println();
         for(Category category : categories) {
             System.out.println(category.toString());
+        }
+    }
+
+    @FXML
+    void printMonthsYearsMap(ActionEvent event) {
+        Map<YearMonth, List<Book>> yearsMonthsMap = LibraryManager.getLibrary().getMonthsYearsMap();
+        for (YearMonth yearMonth : yearsMonthsMap.keySet()) {
+            System.out.println("Key: " + yearMonth);
+            List<Book> bookList = yearsMonthsMap.get(yearMonth);
+            for(Book book : bookList) {
+                System.out.println(book);
+            }
         }
     }
 }

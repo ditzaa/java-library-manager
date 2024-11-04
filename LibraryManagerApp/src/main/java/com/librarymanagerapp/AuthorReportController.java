@@ -78,7 +78,6 @@ public class AuthorReportController {
                     }
                     fileWriter.write(delimitatorLine);
 
-                    // Afișare alert pe JavaFX Application Thread
                     Platform.runLater(() -> {
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Creare raport");

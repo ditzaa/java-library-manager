@@ -1,0 +1,9 @@
+Noiembrie 2024 - Raport al Cărților Împrumutate
+------------------------------------------------------------------------------------------
+Numărul de cărți împrumutate: 2
+
+Nr.   Titlu                                    Autor                       Gen
+------------------------------------------------------------------------------------------
+1     Data Structures                          Emily Clark               Computer Science         
+2     Python Crash Course                      Eric Matthes              Programming              
+------------------------------------------------------------------------------------------

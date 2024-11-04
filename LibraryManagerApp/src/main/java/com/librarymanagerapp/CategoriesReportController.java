@@ -30,11 +30,10 @@ public class CategoriesReportController {
 
     Set<Category> categories = LibraryManager.getLibrary().getCategories();
 
-
     @FXML
     void switchToReportsMenu(ActionEvent event) {
         try {
-            LibraryManager.switchScene("categories-report-view.fxml");
+            LibraryManager.switchScene("generate-reports-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
