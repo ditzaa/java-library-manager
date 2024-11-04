@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-
 import java.util.Set;
 
 public class AllCategoriesController {
@@ -17,10 +16,8 @@ public class AllCategoriesController {
 
     public void initialize() {
         listViewAllCategories.setItems(allCategories);
-        System.out.println("Cveva");
 
         for (Category category : categories) {
-            System.out.println(category.getName());
             allCategories.add(category.getName());
         }
 

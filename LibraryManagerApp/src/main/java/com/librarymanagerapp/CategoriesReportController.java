@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
@@ -29,80 +30,13 @@ public class CategoriesReportController {
 
     Set<Category> categories = LibraryManager.getLibrary().getCategories();
 
+
     @FXML
-    void onGenerateAllCategoriesReport(ActionEvent event) {
-        String fileName = "All Categories Report";
-        for (Category category : categories) {
-            String categoryName = category.getName();
-            int numberOfBooks = category.getNumberOfBooks();
-            List<Book> booksListOfSelectedGenre = category.getBooks();
-
-            FileChooser.ExtensionFilter extFilter1 = new FileChooser.ExtensionFilter("Text files",
-                    "*.txt");
-            FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files",
-                    "*.*");
-
-            Stage stageFileSave = new Stage();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Alege locul de salvare al fișierului");
-            fileChooser.setInitialFileName(fileName);
-            fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
-            fileChooser.setInitialDirectory(new File("./Reports"));
-            stageFileSave.setResizable(true);
-            File fileReport = fileChooser.showSaveDialog(stageFileSave);
-
-            if (fileReport != null) {
-                new Thread(() -> {
-                    try (FileWriter fileWriter = new FileWriter(fileReport)) {
-                        fileWriter.write("Raport Toate Categoriile" + "\n");
-                        String delimitatorLine = "\n" + String.format("%-110s", "")
-                                .replace(' ', '-') + "\n";
-                        fileWriter.write(delimitatorLine);
-
-                        fileWriter.write(categoryName);
-                        fileWriter.write(String.format("Numărul de cărți: %d\n", numberOfBooks));
-
-                        String headerFormat = "%-5s %-50s %-40s %s\n";
-                        fileWriter.write(delimitatorLine);
-                        fileWriter.write(String.format(headerFormat,
-                                "Nr.",
-                                "Titlu",
-                                "Autori",
-                                "Data Publicării"));
-                        fileWriter.write(delimitatorLine);
-
-                        int indexBooks = 1;
-                        String rowFormat = "%-5d %-50s %-40s %s\n";
-                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-                        for (Book book : booksListOfSelectedGenre) {
-                            List<String> authors = book.getAuthors();
-                            String authorsString = String.join(", ", authors);
-
-                            String formattedDate = book.getPublicationDate().format(dateFormatter);
-
-                            fileWriter.write(String.format(rowFormat,
-                                    indexBooks,
-                                    truncateString(book.getTitle(), 50),
-                                    truncateString(authorsString, 40),
-                                    formattedDate));
-
-                            indexBooks++;
-                        }
-
-                        fileWriter.write(delimitatorLine);
-
-                        Platform.runLater(() -> {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Creare raport");
-                            alert.setHeaderText("Raport creat cu succes!");
-                            alert.showAndWait();
-                        });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-            }
+    void switchToReportsMenu(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("categories-report-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -117,18 +51,19 @@ public class CategoriesReportController {
         FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files",
                 "*.*");
 
-        Stage stageFileSave = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Alege locul de salvare al fișierului");
-        fileChooser.setInitialFileName(fileName);
-        fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
-        fileChooser.setInitialDirectory(new File("./Reports"));
-        stageFileSave.setResizable(true);
-        File fileReport = fileChooser.showSaveDialog(stageFileSave);
-
         for (Category category : categories) {
             if (genre.equals(category.getName())) {
                 categoryExists = true;
+
+                Stage stageFileSave = new Stage();
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Alege locul de salvare al fișierului");
+                fileChooser.setInitialFileName(fileName);
+                fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
+                fileChooser.setInitialDirectory(new File("./Reports"));
+                stageFileSave.setResizable(true);
+                File fileReport = fileChooser.showSaveDialog(stageFileSave);
+
                 int numberOfBooks = category.getNumberOfBooks();
                 List<Book> booksListOfSelectedGenre = category.getBooks();
                 if (fileReport != null) {
@@ -191,18 +126,79 @@ public class CategoriesReportController {
         }
     }
 
-    private String truncateString(String input, int maxLength) {
-        return input.length() > maxLength ?
-                input.substring(0, maxLength - 3) + "..." :
-                input;
-    }
-
     @FXML
-    void switchToReportsMenu(ActionEvent event) {
-        try {
-            LibraryManager.switchScene("categories-report-view.fxml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    void onGenerateAllCategoriesReport(ActionEvent event) {
+        String fileName = "All Categories Report";
+        FileChooser.ExtensionFilter extFilter1 = new FileChooser.ExtensionFilter("Text files", "*.txt");
+        FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files", "*.*");
+
+        Stage stageFileSave = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Alege locul de salvare al fișierului");
+        fileChooser.setInitialFileName(fileName);
+        fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
+        fileChooser.setInitialDirectory(new File("./Reports"));
+        File fileReport = fileChooser.showSaveDialog(stageFileSave);
+
+        if (fileReport != null) {
+            try (FileWriter fileWriter = new FileWriter(fileReport)) {
+                fileWriter.write(centerText("RAPORT GENERAL - TOATE CATEGORIILE", 100) + "\n\n");
+
+                String separator = createSeparator(100);
+
+                for (Category category : categories) {
+                    fileWriter.write(separator);
+                    fileWriter.write(String.format("\n%-20s%s", "CATEGORIA:",
+                            category.getName().toUpperCase()) + "\n");
+                    fileWriter.write(String.format("%-20s%d\n", "Cărți în catalog:", category.getNumberOfBooks()));
+                    fileWriter.write("\n");
+
+                    String headerFormat = "%-5s %-45s %-35s %s\n";
+                    fileWriter.write(String.format(headerFormat,
+                            "Nr.",
+                            "Titlu",
+                            "Autori",
+                            "Data Publicării"));
+                    fileWriter.write(createSeparator(100));
+
+                    int indexBooks = 1;
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                    String rowFormat = "%-5d %-45s %-35s %s\n";
+
+                    for (Book book : category.getBooks()) {
+                        String authorsString = String.join(", ", book.getAuthors());
+                        String formattedDate = book.getPublicationDate().format(dateFormatter);
+
+                        fileWriter.write(String.format(rowFormat,
+                                indexBooks,
+                                truncateString(book.getTitle(), 45),
+                                truncateString(authorsString, 35),
+                                formattedDate));
+                        indexBooks++;
+                    }
+
+                    fileWriter.write(separator + "\n\n");
+                }
+
+                fileWriter.write(centerText("SFÂRȘIT RAPORT", 100) + "\n");
+                fileWriter.write(centerText("Generat la: " +
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")), 100));
+
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Creare raport");
+                    alert.setHeaderText("Raport creat cu succes!");
+                    alert.showAndWait();
+                });
+            } catch (IOException e) {
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Eroare");
+                    alert.setHeaderText("Eroare la crearea raportului!");
+                    alert.setContentText("A apărut o eroare la scrierea în fișier: " + e.getMessage());
+                    alert.showAndWait();
+                });
+            }
         }
     }
 
@@ -219,4 +215,20 @@ public class CategoriesReportController {
         categoriesStage.setScene(scene);
         categoriesStage.show();
     }
+
+    private String createSeparator(int length) {
+        return "\n" + String.format("%" + length + "s", "").replace(' ', '-') + "\n";
+    }
+
+    private String centerText(String text, int width) {
+        return String.format("%" + ((width + text.length()) / 2) + "s", text);
+    }
+
+    private String truncateString(String input, int maxLength) {
+        if (input == null) return "";
+        return input.length() > maxLength ?
+                input.substring(0, maxLength - 3) + "..." :
+                input;
+    }
 }
+
