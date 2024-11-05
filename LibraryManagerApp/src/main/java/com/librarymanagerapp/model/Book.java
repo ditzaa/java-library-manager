@@ -15,6 +15,7 @@ public class Book implements Serializable {
     private LocalDate publicationDate;
     private LocalDate borrowedDate;
     private String currentReader;
+    private int numberOfBorrowings;
 
     public Book(String title, List<String> authors, String genre, LocalDate publicationDate) {
         this.idBook = BOOK_ID++;
@@ -25,6 +26,7 @@ public class Book implements Serializable {
         this.genre = genre;
         this.publicationDate = publicationDate;
         this.currentReader = "";
+        this.numberOfBorrowings = 0;
     }
 
     public Book() {
@@ -63,6 +65,10 @@ public class Book implements Serializable {
         return borrowedDate != null;
     }
 
+    public int getNumberOfBorrowings() {
+        return numberOfBorrowings;
+    }
+
     public static void setID_BOOK(int bookId) {
         BOOK_ID = bookId;
     }
@@ -89,6 +95,10 @@ public class Book implements Serializable {
 
     public void setBorrowedDate(LocalDate borrowedDate) {
         this.borrowedDate = borrowedDate;
+    }
+
+    public void setNumberOfBorrowings(int numberOfBorrowings) {
+        this.numberOfBorrowings = numberOfBorrowings;
     }
 
     @Override

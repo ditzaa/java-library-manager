@@ -117,6 +117,15 @@ public class BookDetailsController {
             YearMonth yearMonthBorrowedDate = YearMonth.of(borrowedDate.getYear(), borrowedDate1.getMonth());
             library.addBorrowedDate(yearMonthBorrowedDate, selectedBook);
 
+            //adauga la nr de imprumuturi
+            selectedBook.setNumberOfBorrowings(selectedBook.getNumberOfBorrowings() + 1);
+            //verifica daca se afla in top 10 nr de carti imprumutate
+            library.checkIfTopBorrowing(selectedBook);
+//            for (int i = 0; i < 10; i++) {
+//                System.out.println(library.getTitlesTopBorrowings());
+//                System.out.println(library.getNbTopBorrowings());
+//            }
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Confirmare");
             alert.setHeaderText("Împrumutul cărții a fost realizat cu succes!");

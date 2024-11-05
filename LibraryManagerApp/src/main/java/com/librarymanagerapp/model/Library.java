@@ -10,6 +10,8 @@ public class Library implements Serializable {
     private Set<Category> categories = new HashSet<>();
     private Map<String, List<Book>> authorsMap = new HashMap<>();
     private Map<YearMonth, List<Book>> monthsYearsMap = new HashMap<>();
+    private int[] nbTopBorrowings = new int[10];
+    private String[] titlesTopBorrowings = new String[10];
 
     public Library() {
         books = new ArrayList<>();
@@ -39,6 +41,14 @@ public class Library implements Serializable {
 
     public Book getBookByIndex(int index) {
         return books.get(index);
+    }
+
+    public int[] getNbTopBorrowings() {
+        return nbTopBorrowings;
+    }
+
+    public String[] getTitlesTopBorrowings() {
+        return titlesTopBorrowings;
     }
 
     public void displayBooks(){
@@ -94,6 +104,61 @@ public class Library implements Serializable {
             List<Book> booksList = new ArrayList<>();
             booksList.add(book);
             monthsYearsMap.put(yearMonth, booksList);
+        }
+    }
+
+    public void checkIfTopBorrowing(Book book) {
+        int positionToReplace = -1;
+        boolean alreadyPlaced = false;
+        for (int i = 0; i < nbTopBorrowings.length; i++) {
+            //cartea este deja in top, actualizeaza nr de imprumuturi
+            if ( titlesTopBorrowings[i] != null && titlesTopBorrowings[i].equals(book.getTitle())){
+                nbTopBorrowings[i] = book.getNumberOfBorrowings();
+                alreadyPlaced = true;
+                sortTopBorrowings();
+                break;
+            } else if (nbTopBorrowings[i] == 0) { //cartea nu este in top
+                //exista loc liber in top
+                nbTopBorrowings[i] = book.getNumberOfBorrowings();
+                titlesTopBorrowings[i] = book.getTitle();
+                alreadyPlaced = true;
+                break;
+            } else {
+                if (nbTopBorrowings[i] <= book.getNumberOfBorrowings()) {
+                    positionToReplace = i;
+                }
+            }
+        }
+
+        if (!alreadyPlaced && positionToReplace != -1) {
+            for (int j = nbTopBorrowings.length - 1; j > positionToReplace; j--) {
+                nbTopBorrowings[j] = nbTopBorrowings[j-1];
+                titlesTopBorrowings[j] = titlesTopBorrowings[j-1];
+            }
+            nbTopBorrowings[positionToReplace] = book.getNumberOfBorrowings();
+            titlesTopBorrowings[positionToReplace] = book.getTitle();
+        }
+
+        //check
+        System.out.println();
+        for (int i = 0; i < titlesTopBorrowings.length; i++) {
+            System.out.println(i + " " + titlesTopBorrowings[i] + " - " + nbTopBorrowings[i]);
+        }
+    }
+
+    public void sortTopBorrowings() {
+        for (int i = 0; i < nbTopBorrowings.length; i++) {
+            for (int j = i; j < nbTopBorrowings.length; j++) {
+                if (nbTopBorrowings[i] < nbTopBorrowings[j]) {
+                    int aux = nbTopBorrowings[j];
+                    nbTopBorrowings[j] = nbTopBorrowings[i];
+                    nbTopBorrowings[i] = aux;
+
+                    String titleAux = titlesTopBorrowings[j];
+                    titlesTopBorrowings[j] = titlesTopBorrowings[i];
+                    titlesTopBorrowings[i] = titleAux;
+                }
+            }
         }
     }
 }

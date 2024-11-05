@@ -1,0 +1,15 @@
+Top 10 Most Borrowed Books
+----------------------------------------------------------------------------------------------------------------------------
+Nr.   Titlu                                    Autor                     Gen                       Împrumuturi
+----------------------------------------------------------------------------------------------------------------------------
+1     Design Patterns                          Erich Gamma               Software Design           4    
+2     Algorithms                               Emily Clark               Computer Science          3    
+3     The Pragmatic Programmer                 Andy Hunt                 Programming               2    
+4     Data Structures                          Emily Clark               Computer Science          2    
+5     Effective Java                           Joshua Bloch              Programming               1    
+6     Computer Networks                        Andrew S. Tanenbaum       Networks                  1    
+7     Computer Architecture                    John Hennessy             Hardware                  1    
+8     Operating System Concepts                Abraham Silberschatz      Operating Systems         1    
+9     Clean Code                               Robert Martin             Programming               1    
+10    Introduction to Algorithms               Thomas Cormen             Algorithms                1    
+----------------------------------------------------------------------------------------------------------------------------
