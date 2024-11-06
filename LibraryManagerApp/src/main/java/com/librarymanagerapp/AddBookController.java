@@ -9,7 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -38,59 +40,12 @@ public class AddBookController {
 
     public void switchToMainMenu(ActionEvent event) {
         try {
-            LibraryManager.switchScene("main-menu-view.fxml");
+            Scene scene = LibraryManager.switchScene("main-menu-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-//    public void onAddBook(ActionEvent event) {
-//        String title = titleTextField.getText();
-//        List<String> authorsList = authors;
-//        String genre = genreTextField.getText();
-//        LocalDate publicationDate = publishDateTextField.getValue();
-//        if (InputValidator.validateBookAdd(title, authorsList, genre, publicationDate)) {
-//            Book newBook = new Book(title, authorsList, genre, publicationDate);
-//            LibraryManager.getLibrary().addBook(newBook);
-//            LibraryManager.getLibrary().addAuthor(authors, newBook);
-//
-//            titleTextField.setText("");
-//            genreTextField.setText("");
-//            publishDateTextField.setValue(null);
-//            authorsListView.getItems().clear();
-//
-//            Set<Category> categories = LibraryManager.getLibrary().getCategories();
-//            boolean categoryNotExisting = true;
-//            for (Category category : categories) {
-//                if (genre.equals(category.getName())) {
-//                    categoryNotExisting = false;
-//                    category.addBook(newBook);
-//                }
-//            }
-//
-//            if (categoryNotExisting) {
-//                Category newCategory = new Category(genre);
-//                newCategory.addBook(newBook);
-//                categories.add(newCategory);
-//            }
-//
-//            labelAddConfirmation.setText("Carte adaugată cu succes!");
-//            labelAddConfirmation.setVisible(true);
-//
-//            Timeline timeline = new Timeline(new KeyFrame(
-//                    Duration.seconds(3),
-//                    event1 -> labelAddConfirmation.setVisible(false)
-//            ));
-//            timeline.setCycleCount(1);
-//            timeline.play();
-//        }else {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setTitle("Atenție");
-//            alert.setHeaderText("Informații lipsă sau invalide");
-//            alert.setContentText("Completează toate câmpurile corespunzător înainte de a adăuga o carte.");
-//            alert.showAndWait();
-//        }
-//    }
 
     public void onAddBook(ActionEvent event) {
         String title = titleTextField.getText();

@@ -5,21 +5,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.MainController">
+<?import javafx.scene.layout.VBox?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.MainController">
   <children>
-    <Label layoutX="301.0" layoutY="50.0" text="BookFlow">
+    <VBox id="vBoxMainMenu" prefHeight="500" prefWidth="150">
+      <Label layoutX="98.0" layoutY="50.0" text="Salut!" />
+      <VBox id="vBoxButtonsMenu">
+        <Button fx:id="buttonSearchBook" layoutX="44.0" layoutY="139.0" mnemonicParsing="false" onAction="#onBookSearch" prefHeight="31.0" prefWidth="143.0" text="Caută carte" />
+        <Button fx:id="buttonAddBook" layoutX="42.0" layoutY="196.0" mnemonicParsing="false" onAction="#switchToAddBookScene" prefHeight="31.0" prefWidth="143.0" text="Adaugă carte" />
+        <Button fx:id="buttonRemoveBook" layoutX="42.0" layoutY="259.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="31.0" prefWidth="143.0" text="Șterge carte" />
+        <Button fx:id="buttonViewReports" layoutX="40.0" layoutY="314.0" mnemonicParsing="false" onAction="#onReportsMenu" prefHeight="31.0" prefWidth="143.0" text="Rapoarte" />
+      </VBox>
+    </VBox>
+    <Label layoutX="350.0" layoutY="28.0" text="BookFlow">
       <font>
         <Font size="30.0" />
       </font>
     </Label>
-    <Button fx:id="buttonAddBook" layoutX="292.0" layoutY="203.0" mnemonicParsing="false" onAction="#switchToAddBookScene" prefHeight="31.0" prefWidth="143.0" text="Adaugă carte" />
-    <Button fx:id="buttonViewReports" layoutX="290.0" layoutY="321.0" mnemonicParsing="false" onAction="#onReportsMenu" prefHeight="31.0" prefWidth="143.0" text="Rapoarte" />
-    <Button fx:id="buttonSearchBook" layoutX="294.0" layoutY="146.0" mnemonicParsing="false" onAction="#onBookSearch" prefHeight="31.0" prefWidth="143.0" text="Caută carte" />
-    <Button fx:id="buttonRemoveBook" layoutX="292.0" layoutY="266.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="31.0" prefWidth="143.0" text="Șterge carte" />
-    <Button fx:id="buttonPrintAllBooks" layoutX="65.0" layoutY="139.0" mnemonicParsing="false" onAction="#displayBooks" prefHeight="44.0" prefWidth="81.0" text="Carti" />
-      <Button layoutX="65.0" layoutY="190.0" mnemonicParsing="false" onAction="#displayAuthors" prefHeight="44.0" prefWidth="81.0" text="Autori" />
-      <Button layoutX="65.0" layoutY="244.0" mnemonicParsing="false" onAction="#onResetLibraryDataClicked" prefHeight="44.0" prefWidth="81.0" text="Reset" />
-      <Button layoutX="65.0" layoutY="299.0" mnemonicParsing="false" onAction="#displayCategories" prefHeight="44.0" prefWidth="81.0" text="Categorii" />
-      <Button layoutX="65.0" layoutY="352.0" mnemonicParsing="false" onAction="#printMonthsYearsMap" prefHeight="44.0" prefWidth="81.0" text="Luna-An" />
+    <Button fx:id="buttonPrintAllBooks" layoutX="602.0" layoutY="99.0" mnemonicParsing="false" onAction="#displayBooks" prefHeight="44.0" prefWidth="81.0" text="Carti" />
+      <Button id="btnAutori" layoutX="602.0" layoutY="150.0" mnemonicParsing="false" onAction="#displayAuthors" prefHeight="44.0" prefWidth="81.0" text="Autori" />
+      <Button layoutX="602.0" layoutY="204.0" mnemonicParsing="false" onAction="#onResetLibraryDataClicked" prefHeight="44.0" prefWidth="81.0" text="Reset" />
+      <Button layoutX="602.0" layoutY="259.0" mnemonicParsing="false" onAction="#displayCategories" prefHeight="44.0" prefWidth="81.0" text="Categorii" />
+      <Button layoutX="602.0" layoutY="312.0" mnemonicParsing="false" onAction="#printMonthsYearsMap" prefHeight="44.0" prefWidth="81.0" text="Luna-An" />
+      <Label layoutX="317.0" layoutY="365.0" text="Un text care sa spuna ceva despre aplicatie" />
   </children>
 </AnchorPane>

@@ -32,6 +32,10 @@ public class LibraryManager extends Application {
     public void start(Stage stage) throws IOException {
         mainStage = stage;
         switchScene("main-menu-view.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManager.class.getResource("main-menu-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        mainStage.setScene(scene);
         stage.setTitle("BookFlow");
         stage.show();
 
@@ -44,10 +48,17 @@ public class LibraryManager extends Application {
         launch();
     }
 
-    public static void switchScene(String fxmlFile) throws IOException {
+    public static Scene switchScene(String fxmlFile) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryManager.class.getResource(fxmlFile));
         Scene scene = new Scene(fxmlLoader.load());
+        //scene.getStylesheets().add(getClass().getResource("/css/index.css").toExternalForm());
         mainStage.setScene(scene);
+        return scene;
+    }
+
+    //not implemented yet
+    public void setStylesheet(Scene scene) {
+        scene.getStylesheets().add(getClass().getResource("index.css").toExternalForm());
     }
 
     public static Library getLibrary() {

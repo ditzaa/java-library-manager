@@ -1,0 +1,20 @@
+.root {
+}
+
+#vBoxMainMenu {
+  -fx-background-color: #d4d4d4;
+  -fx-content-display: flex;
+  -fx-alignment: center;
+}
+
+#vBoxButtonsMenu {
+}
+
+.buttons {
+}
+
+.label {
+  -fx-font-size: 20;
+  -fx-font-family: "Lucida Console";
+  -fx-alignment: center;
+}
