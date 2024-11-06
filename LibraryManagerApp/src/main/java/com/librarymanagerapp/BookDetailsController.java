@@ -2,6 +2,8 @@ package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Library;
+import com.librarymanagerapp.util.InvalidReaderException;
+import com.librarymanagerapp.util.LibraryMapUpdateException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -101,47 +103,65 @@ public class BookDetailsController {
 
     @FXML
     void onBookStatusChange(ActionEvent event) {
-        if ("".equals(selectedBook.getCurrentReader())) {
-            //imprumuta cartea
-            System.out.println("Imprumuta cartea");
-            labelStatus.setText("Împrumutată");
-            selectedBook.setCurrentReader(textFieldCurrentReader.getText());
-            selectedBook.setBorrowedDate(LocalDate.now());
-            LocalDate borrowedDate = selectedBook.getBorrowedDate();
-            labelBorrowDate.setText(borrowedDate.toString());
-            labelReturnDate.setText(borrowedDate.plusDays(21).toString());
-            textFieldCurrentReader.setEditable(false);
-            buttonBorrowReturnBook.setText("Returnează");
+        try {
+            String readerName = textFieldCurrentReader.getText();
 
-            LocalDate borrowedDate1 = selectedBook.getBorrowedDate();
-            YearMonth yearMonthBorrowedDate = YearMonth.of(borrowedDate.getYear(), borrowedDate1.getMonth());
-            library.addBorrowedDate(yearMonthBorrowedDate, selectedBook);
+            if (!readerName.matches("[a-zA-Z ]+")) {
+                throw new InvalidReaderException("Numele cititorului trebuie să conțină doar litere.");
+            }
 
-            //adauga la nr de imprumuturi
-            selectedBook.setNumberOfBorrowings(selectedBook.getNumberOfBorrowings() + 1);
-            //verifica daca se afla in top 10 nr de carti imprumutate
-            library.checkIfTopBorrowing(selectedBook);
-//            for (int i = 0; i < 10; i++) {
-//                System.out.println(library.getTitlesTopBorrowings());
-//                System.out.println(library.getNbTopBorrowings());
-//            }
+            if ("".equals(selectedBook.getCurrentReader())) {
+                // Împrumută cartea
+                System.out.println("Împrumută cartea");
+                labelStatus.setText("Împrumutată");
+                selectedBook.setCurrentReader(readerName);
+                selectedBook.setBorrowedDate(LocalDate.now());
+                LocalDate borrowedDate = selectedBook.getBorrowedDate();
+                labelBorrowDate.setText(borrowedDate.toString());
+                labelReturnDate.setText(borrowedDate.plusDays(21).toString());
+                textFieldCurrentReader.setEditable(false);
+                buttonBorrowReturnBook.setText("Returnează");
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Confirmare");
-            alert.setHeaderText("Împrumutul cărții a fost realizat cu succes!");
+                try {
+                    YearMonth yearMonthBorrowedDate = YearMonth.of(borrowedDate.getYear(), borrowedDate.getMonth());
+                    library.addBorrowedDate(yearMonthBorrowedDate, selectedBook);
+                } catch (Exception e) {
+                    throw new LibraryMapUpdateException("A apărut o eroare la actualizarea mapei cu datele de împrumut.");
+                }
+
+                selectedBook.setNumberOfBorrowings(selectedBook.getNumberOfBorrowings() + 1);
+                library.checkIfTopBorrowing(selectedBook);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Confirmare");
+                alert.setHeaderText("Împrumutul cărții a fost realizat cu succes!");
+                alert.showAndWait();
+            } else {
+                //returneaza cartea
+                labelStatus.setText("Disponibilă");
+                selectedBook.setBorrowedDate(null);
+                labelBorrowDate.setText("Nu există");
+                labelReturnDate.setText("Nu există");
+                selectedBook.setCurrentReader("");
+                textFieldCurrentReader.setEditable(true);
+                textFieldCurrentReader.setText("");
+                buttonBorrowReturnBook.setText("Împrumută");
+            }
+        } catch (InvalidReaderException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare");
+            alert.setHeaderText("Numele cititorului este invalid");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
-        } else {
-            //returneaza cartea
-            labelStatus.setText("Disponibilă");
-            selectedBook.setBorrowedDate(null);
-            labelBorrowDate.setText("Nu există");
-            labelReturnDate.setText("Nu există");
-            selectedBook.setCurrentReader("");
-            textFieldCurrentReader.setEditable(true);
-            textFieldCurrentReader.setText("");
-            buttonBorrowReturnBook.setText("Împrumută");
+        } catch (LibraryMapUpdateException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare");
+            alert.setHeaderText("Eroare la actualizarea mapei");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
+
 
     @FXML
     void onBookEditOption(ActionEvent event) {

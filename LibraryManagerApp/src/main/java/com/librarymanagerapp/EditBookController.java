@@ -4,6 +4,8 @@ import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Category;
 import com.librarymanagerapp.model.Library;
 import com.librarymanagerapp.util.InputValidator;
+import com.librarymanagerapp.util.InvalidBookDataException;
+import com.librarymanagerapp.util.InvalidReaderException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -62,79 +64,91 @@ public class EditBookController {
 
     @FXML
     void onEditBook(ActionEvent event) {
-        //modifica hashmap-ul cu autori
         String title = titleTextField.getText();
-        List<String> authorsList = new ArrayList<>();
-        for (String author : authors) {
-            authorsList.add(author);
-        }
+        List<String> authorsList = new ArrayList<>(authors);
         String genre = genreTextField.getText();
         LocalDate publicationDate = publishDateTextField.getValue();
         String reader = readerTextField.getText();
-        if (InputValidator.validateBookAdd(title, authorsList, genre, publicationDate)) {
-            List<Book> libraryBooks = LibraryManager.getLibrary().getBooks();
-            for (Book book : libraryBooks) {
-                if (book.getTitle().equals(selectedBook.getTitle())) {
-                    book.setTitle(title);
-                    book.setAuthors(authorsList);
 
-                    if (!genre.equals(book.getGenre())) {
-                        String oldGenre = book.getGenre();
-                        Set<Category> categories = LibraryManager.getLibrary().getCategories();
-                        boolean categoryExists = false;
-                        for (Category category : categories) {
-                            if (genre.equals(category.getName())) {
-                                categoryExists = true;
-                                category.addBook(book);
-                            } else if (oldGenre.equals(category.getName())){
-                                category.removeBook(book);
+        try {
+            if (title.isEmpty() || authorsList.isEmpty() || genre.isEmpty() || publicationDate == null) {
+                throw new InvalidBookDataException("Completează toate câmpurile corespunzător înainte de a edita detaliile unei cărți.");
+            }
+
+            if (InputValidator.validateBookAdd(title, authorsList, genre, publicationDate)) {
+                List<Book> libraryBooks = LibraryManager.getLibrary().getBooks();
+                for (Book book : libraryBooks) {
+                    if (book.getTitle().equals(selectedBook.getTitle())) {
+                        book.setTitle(title);
+                        book.setAuthors(authorsList);
+
+                        if (!genre.equals(book.getGenre())) {
+                            String oldGenre = book.getGenre();
+                            Set<Category> categories = LibraryManager.getLibrary().getCategories();
+                            boolean categoryExists = false;
+                            for (Category category : categories) {
+                                if (genre.equals(category.getName())) {
+                                    categoryExists = true;
+                                    category.addBook(book);
+                                    break;
+                                } else if (oldGenre.equals(category.getName())) {
+                                    category.removeBook(book);
+                                }
+                            }
+
+                            if (!categoryExists) {
+                                Category newCategory = new Category(genre);
+                                newCategory.addBook(book);
+                                categories.add(newCategory);
                             }
                         }
 
-                        if (!categoryExists) {
-                            Category newCategory = new Category(genre);
-                            newCategory.addBook(book);
-                            categories.add(newCategory);
-                        }
+                        book.setGenre(genre);
+                        book.setPublicationDate(publicationDate);
+                        book.setCurrentReader(reader);
                     }
-
-                    book.setGenre(genre);
-                    book.setPublicationDate(publicationDate);
-                    book.setCurrentReader(reader);
                 }
+
+                labelEditConfirmation.setText("Carte editată cu succes!");
+                labelEditConfirmation.setVisible(true);
+
+                Timeline timeline = new Timeline(new KeyFrame(
+                        Duration.seconds(3),
+                        event1 -> labelEditConfirmation.setVisible(false)
+                ));
+                timeline.setCycleCount(1);
+                timeline.play();
             }
-
-            labelEditConfirmation.setText("Carte editată cu succes!");
-            labelEditConfirmation.setVisible(true);
-
-            Timeline timeline = new Timeline(new KeyFrame(
-                    Duration.seconds(3),
-                    event1 -> labelEditConfirmation.setVisible(false)
-            ));
-            timeline.setCycleCount(1);
-            timeline.play();
-        }else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Atenție");
-            alert.setHeaderText("Informații lipsă sau invalide");
-            alert.setContentText("Completează toate câmpurile corespunzător înainte de a edita detaliile unei cărți.");
-            alert.showAndWait();
-        }
+        } catch(InvalidBookDataException e){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Atenție");
+                alert.setHeaderText("Informații lipsă sau invalide");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
     }
 
     @FXML
     void onAddNewAuthor(ActionEvent event) {
-        if ("".equals(authorTextField.getText())) {
+        String author = authorTextField.getText();
+        try {
+            if (author.isEmpty()) {
+                throw new InvalidReaderException("Completează câmpul cu numele autorului.");
+            }
+            if (!author.matches("[a-zA-Z ]+")) {
+                throw new InvalidReaderException("Numele autorului trebuie să conțină doar litere și spații.");
+            }
+
+            authors.add(author);
+            authorTextField.setText("");
+            LibraryManager.getLibrary().addAuthor(authors, selectedBook);
+        } catch (InvalidReaderException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Atenție");
             alert.setHeaderText("Informații invalide");
-            alert.setContentText("Completează câmpul cu numele autorului corespunzător înainte de a-l adăuga.");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
-        String author = authorTextField.getText();
-        authors.add(author);
-        authorTextField.setText("");
-        LibraryManager.getLibrary().addAuthor(authors, selectedBook);
     }
 
     @FXML

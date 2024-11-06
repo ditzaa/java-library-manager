@@ -2,6 +2,8 @@ package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Library;
+import com.librarymanagerapp.util.AuthorNotSelectedException;
+import com.librarymanagerapp.util.InvalidAuthorException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,74 +39,91 @@ public class AuthorReportController {
 
     @FXML
     void onAuthorReportGenerate(ActionEvent event) {
-        String fileName = selectedAuthor + " Author Report.txt";
-        List<Book> booksListOfSelectedAuthor = authorsMap.get(selectedAuthor);
-        int numberOfBooks = booksListOfSelectedAuthor.size();
+        try {
+            if (selectedAuthor == null || selectedAuthor.isEmpty()) {
+                throw new AuthorNotSelectedException("Selectează un autor din listă înainte de a genera un raport.");
+            }
 
-        FileChooser.ExtensionFilter extFilter1 = new FileChooser.ExtensionFilter("Text files",
-                "*.txt");
-        FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files",
-                "*.*");
+            String fileName = selectedAuthor + " Author Report.txt";
+            List<Book> booksListOfSelectedAuthor = authorsMap.get(selectedAuthor);
 
-        Stage stageFileSave = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Alege locul de salvare al fișierului");
-        fileChooser.setInitialFileName(fileName);
-        fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
-        fileChooser.setInitialDirectory(new File("./Reports"));
-        stageFileSave.setResizable(true);
-        File fileReport = fileChooser.showSaveDialog(stageFileSave);
+            if (booksListOfSelectedAuthor == null || booksListOfSelectedAuthor.isEmpty()) {
+                throw new AuthorNotSelectedException("Autorul selectat nu are cărți înregistrate în bibliotecă.");
+            }
 
-        if (fileReport != null) {
-            new Thread(() -> {
-                try (FileWriter fileWriter = new FileWriter(fileReport)) {
-                    fileWriter.write(selectedAuthor + " - Raport de Autor");
-                    String delimitatorLine = "\n--------------------------------------------" +
-                            "----------------------------------------------";
-                    fileWriter.write(delimitatorLine);
-                    fileWriter.write("\nNumărul de cărți scrise de autor în bibliotecă: " + numberOfBooks + "\n");
-                    fileWriter.write("\nNr.   Titlu                                    Gen" +
-                            "                       Data Publicării");
-                    fileWriter.write(delimitatorLine);
+            int numberOfBooks = booksListOfSelectedAuthor.size();
 
-                    int indexBooks = 1;
-                    for (Book book : booksListOfSelectedAuthor) {
-                        fileWriter.write(String.format("\n%-5d %-40s %-25s %s",
-                                indexBooks,
-                                book.getTitle(),
-                                book.getGenre(),
-                                book.getPublicationDate()));
-                        indexBooks++;
+            FileChooser.ExtensionFilter extFilter1 = new FileChooser.ExtensionFilter("Text files", "*.txt");
+            FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files", "*.*");
+
+            Stage stageFileSave = new Stage();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Alege locul de salvare al fișierului");
+            fileChooser.setInitialFileName(fileName);
+            fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
+            fileChooser.setInitialDirectory(new File("./Reports"));
+            stageFileSave.setResizable(true);
+            File fileReport = fileChooser.showSaveDialog(stageFileSave);
+
+            if (fileReport != null) {
+                new Thread(() -> {
+                    try (FileWriter fileWriter = new FileWriter(fileReport)) {
+                        fileWriter.write(selectedAuthor + " - Raport de Autor");
+                        String delimitatorLine = "\n--------------------------------------------" +
+                                "----------------------------------------------";
+                        fileWriter.write(delimitatorLine);
+                        fileWriter.write("\nNumărul de cărți scrise de autor în bibliotecă: " + numberOfBooks + "\n");
+                        fileWriter.write("\nNr.   Titlu                                    Gen" +
+                                "                       Data Publicării");
+                        fileWriter.write(delimitatorLine);
+
+                        int indexBooks = 1;
+                        for (Book book : booksListOfSelectedAuthor) {
+                            fileWriter.write(String.format("\n%-5d %-40s %-25s %s",
+                                    indexBooks,
+                                    book.getTitle(),
+                                    book.getGenre(),
+                                    book.getPublicationDate()));
+                            indexBooks++;
+                        }
+                        fileWriter.write(delimitatorLine);
+
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Creare raport");
+                            alert.setHeaderText("Raport creat cu succes!");
+                            alert.showAndWait();
+                        });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    fileWriter.write(delimitatorLine);
-
-                    Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Creare raport");
-                        alert.setHeaderText("Raport creat cu succes!");
-                        alert.showAndWait();
-                    });
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }).start();
+                }).start();
+            }
+        } catch (AuthorNotSelectedException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Atenție");
+            alert.setHeaderText("Selecție invalidă");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
 
     @FXML
     void onAuthorSearch(ActionEvent event) {
-        if ("".equals(textFieldAuthorName.getText())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Atenție");
-            alert.setHeaderText("Informații invalide");
-            alert.setContentText("Completează câmpul corespunzător înainte de a căuta un autor.");
-            alert.showAndWait();
-        } else {
+        String authorName = textFieldAuthorName.getText();
+
+        try {
+            if (authorName.isEmpty()) {
+                throw new InvalidAuthorException("Completează câmpul corespunzător înainte de a căuta un autor.");
+            }
+            if (!authorName.matches("[a-zA-Z ]+")) {
+                throw new InvalidAuthorException("Numele autorului trebuie să conțină doar litere și spații.");
+            }
+
             authors = FXCollections.observableArrayList();
             Library library = LibraryManager.getLibrary();
             authorsMap = library.getAuthorsMap();
-            String authorName = textFieldAuthorName.getText();
 
             if (authorsMap.containsKey(authorName)) {
                 authors.add(authorName);
@@ -116,11 +135,13 @@ public class AuthorReportController {
             } else {
                 listViewAuthors.setItems(authors);
             }
+        } catch (InvalidAuthorException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Atenție");
+            alert.setHeaderText("Informații invalide");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
-    }
-
-    public void initialize() {
-        listViewAuthors.setItems(authors);
     }
 
     @FXML

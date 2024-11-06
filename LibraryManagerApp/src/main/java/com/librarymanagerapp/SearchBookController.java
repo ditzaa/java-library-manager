@@ -2,6 +2,8 @@ package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Library;
+import com.librarymanagerapp.util.EmptySearchFieldException;
+import com.librarymanagerapp.util.NoBookSelectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,33 +44,62 @@ public class SearchBookController {
 
     @FXML
     void onSelectBook(MouseEvent event) {
-        selectedBook =  tableViewBooks.getSelectionModel().getSelectedItem();
+        selectedBook = tableViewBooks.getSelectionModel().getSelectedItem();
     }
 
-    //pt a cauta o carte dupa titlu - OK
     @FXML
     void onBookSearch(ActionEvent event) {
-        if ("".equals(textFieldSearchBook.getText())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Atenție");
-            alert.setHeaderText("Informații invalide");
-            alert.setContentText("Completează câmpul cu titlul cărții corespunzător înainte de a căuta o carte.");
-            alert.showAndWait();
-        } else {
-            booksToSearch = FXCollections.observableArrayList();
+        try {
+            if (textFieldSearchBook.getText().trim().isEmpty()) {
+                throw new EmptySearchFieldException("Completează câmpul cu titlul cărții înainte de a căuta.");
+            }
+
+            booksToSearch.clear();
             String title = textFieldSearchBook.getText();
             Library library = LibraryManager.getLibrary();
             List<Book> libraryBooks = library.getBooks();
-            for(Book book : libraryBooks) {
-                if(title.equals(book.getTitle())) {
+
+            for (Book book : libraryBooks) {
+                if (title.equals(book.getTitle())) {
                     booksToSearch.add(book);
                 }
             }
+
             if (booksToSearch.isEmpty()) {
-                tableViewBooks.setPlaceholder(new Label("Nici o carte cu acest titlu"));
-            } else {
-                tableViewBooks.setItems(booksToSearch);
+                tableViewBooks.setPlaceholder(new Label("Nicio carte cu acest titlu"));
             }
+            tableViewBooks.setItems(booksToSearch);
+
+        } catch (EmptySearchFieldException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Atenție");
+            alert.setHeaderText("Informații invalide");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void onSelectBookToDisplayDetails(ActionEvent event) {
+        try {
+            if (selectedBook == null) {
+                throw new NoBookSelectedException("Selectează o carte înainte de a afișa detaliile.");
+            }
+
+            LibraryManager.setCurrentSelectedBook(selectedBook);
+            LibraryManager.switchScene("details-book-view.fxml");
+
+        } catch (NoBookSelectedException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Eroare de selecție");
+            alert.setHeaderText("Nicio carte selectată");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare de încărcare");
+            alert.setHeaderText("Nu s-a putut încărca pagina detaliilor cărții.");
+            alert.showAndWait();
         }
     }
 
@@ -77,17 +108,11 @@ public class SearchBookController {
         try {
             LibraryManager.switchScene("main-menu-view.fxml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    void onSelectBookToDisplayDetails(ActionEvent event) {
-        LibraryManager.setCurrentSelectedBook(selectedBook);
-        try {
-            LibraryManager.switchScene("details-book-view.fxml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare de încărcare");
+            alert.setHeaderText("Nu s-a putut încărca meniul principal.");
+            alert.setContentText("Verifică fișierul de resurse și încearcă din nou.");
+            alert.showAndWait();
         }
     }
 }

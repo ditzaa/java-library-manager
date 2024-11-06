@@ -2,6 +2,7 @@ package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Category;
+import com.librarymanagerapp.util.InvalidGenreException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,46 +42,45 @@ public class CategoriesReportController {
 
     @FXML
     void onGenerateCategoryReport(ActionEvent event) {
-        String genre = textFieldCategory.getText();
-        String fileName = genre + " Category Report";
-        boolean categoryExists = false;
+        try {
+            String genre = textFieldCategory.getText();
 
-        FileChooser.ExtensionFilter extFilter1 = new FileChooser.ExtensionFilter("Text files",
-                "*.txt");
-        FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files",
-                "*.*");
+            if (!genre.matches("[a-zA-Z\\s]+")) {
+                throw new InvalidGenreException("Genul poate conține doar litere și spații.");
+            }
 
-        for (Category category : categories) {
-            if (genre.equals(category.getName())) {
-                categoryExists = true;
+            String fileName = genre + " Category Report";
+            boolean categoryExists = false;
 
-                Stage stageFileSave = new Stage();
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Alege locul de salvare al fișierului");
-                fileChooser.setInitialFileName(fileName);
-                fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
-                fileChooser.setInitialDirectory(new File("./Reports"));
-                stageFileSave.setResizable(true);
-                File fileReport = fileChooser.showSaveDialog(stageFileSave);
+            FileChooser.ExtensionFilter extFilter1 = new FileChooser.ExtensionFilter("Text files", "*.txt");
+            FileChooser.ExtensionFilter extFilter2 = new FileChooser.ExtensionFilter("All files", "*.*");
 
-                int numberOfBooks = category.getNumberOfBooks();
-                List<Book> booksListOfSelectedGenre = category.getBooks();
-                if (fileReport != null) {
+            for (Category category : categories) {
+                if (genre.equals(category.getName())) {
+                    categoryExists = true;
+
+                    Stage stageFileSave = new Stage();
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Alege locul de salvare al fișierului");
+                    fileChooser.setInitialFileName(fileName);
+                    fileChooser.getExtensionFilters().addAll(extFilter1, extFilter2);
+                    fileChooser.setInitialDirectory(new File("./Reports"));
+                    stageFileSave.setResizable(true);
+                    File fileReport = fileChooser.showSaveDialog(stageFileSave);
+
+                    int numberOfBooks = category.getNumberOfBooks();
+                    List<Book> booksListOfSelectedGenre = category.getBooks();
+                    if (fileReport != null) {
                         try (FileWriter fileWriter = new FileWriter(fileReport)) {
                             fileWriter.write("Raport Categorie " + genre + "\n");
-                            String delimitatorLine = "\n" + String.format("%-110s", "")
-                                    .replace(' ', '-') + "\n";
+                            String delimitatorLine = "\n" + String.format("%-110s", "").replace(' ', '-') + "\n";
                             fileWriter.write(delimitatorLine);
 
                             fileWriter.write(String.format("Numărul de cărți: %d\n", numberOfBooks));
 
                             String headerFormat = "%-5s %-50s %-40s %s\n";
                             fileWriter.write(delimitatorLine);
-                            fileWriter.write(String.format(headerFormat,
-                                    "Nr.",
-                                    "Titlu",
-                                    "Autori",
-                                    "Data Publicării"));
+                            fileWriter.write(String.format(headerFormat, "Nr.", "Titlu", "Autori", "Data Publicării"));
                             fileWriter.write(delimitatorLine);
 
                             int indexBooks = 1;
@@ -113,14 +113,21 @@ public class CategoriesReportController {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
                 }
             }
-        }
 
-        if (!categoryExists) {
+            if (!categoryExists) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Creare raport");
+                alert.setHeaderText("Nu există niciun raport cu acest titlu!");
+                alert.showAndWait();
+            }
+        } catch (InvalidGenreException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Creare raport");
-            alert.setHeaderText("Nu există niciun raport cu acest titlu!");
+            alert.setTitle("Atenție");
+            alert.setHeaderText("Gen invalid");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
     }

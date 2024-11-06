@@ -2,7 +2,7 @@ package com.librarymanagerapp;
 
 import com.librarymanagerapp.model.Book;
 import com.librarymanagerapp.model.Category;
-import com.librarymanagerapp.util.InputValidator;
+import com.librarymanagerapp.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -14,6 +14,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Set;
 
@@ -42,12 +44,76 @@ public class AddBookController {
         }
     }
 
+//    public void onAddBook(ActionEvent event) {
+//        String title = titleTextField.getText();
+//        List<String> authorsList = authors;
+//        String genre = genreTextField.getText();
+//        LocalDate publicationDate = publishDateTextField.getValue();
+//        if (InputValidator.validateBookAdd(title, authorsList, genre, publicationDate)) {
+//            Book newBook = new Book(title, authorsList, genre, publicationDate);
+//            LibraryManager.getLibrary().addBook(newBook);
+//            LibraryManager.getLibrary().addAuthor(authors, newBook);
+//
+//            titleTextField.setText("");
+//            genreTextField.setText("");
+//            publishDateTextField.setValue(null);
+//            authorsListView.getItems().clear();
+//
+//            Set<Category> categories = LibraryManager.getLibrary().getCategories();
+//            boolean categoryNotExisting = true;
+//            for (Category category : categories) {
+//                if (genre.equals(category.getName())) {
+//                    categoryNotExisting = false;
+//                    category.addBook(newBook);
+//                }
+//            }
+//
+//            if (categoryNotExisting) {
+//                Category newCategory = new Category(genre);
+//                newCategory.addBook(newBook);
+//                categories.add(newCategory);
+//            }
+//
+//            labelAddConfirmation.setText("Carte adaugată cu succes!");
+//            labelAddConfirmation.setVisible(true);
+//
+//            Timeline timeline = new Timeline(new KeyFrame(
+//                    Duration.seconds(3),
+//                    event1 -> labelAddConfirmation.setVisible(false)
+//            ));
+//            timeline.setCycleCount(1);
+//            timeline.play();
+//        }else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Atenție");
+//            alert.setHeaderText("Informații lipsă sau invalide");
+//            alert.setContentText("Completează toate câmpurile corespunzător înainte de a adăuga o carte.");
+//            alert.showAndWait();
+//        }
+//    }
+
     public void onAddBook(ActionEvent event) {
         String title = titleTextField.getText();
         List<String> authorsList = authors;
         String genre = genreTextField.getText();
         LocalDate publicationDate = publishDateTextField.getValue();
-        if (InputValidator.validateBookAdd(title, authorsList, genre, publicationDate)) {
+
+        try {
+            if (title.isEmpty() || authorsList.isEmpty() || genre.isEmpty() || publicationDate == null) {
+                throw new InvalidBookDataException("Completează toate câmpurile corespunzător înainte de a adăuga o carte.");
+            }
+
+            if (!genre.matches("[a-zA-Z ]+")) {
+                throw new InvalidGenreException("Genul cărții trebuie să conțină doar litere și spații.");
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            try {
+                publicationDate.format(formatter);
+            } catch (DateTimeParseException e) {
+                throw new InvalidBookDataException("Data publicării trebuie să fie în formatul dd/MM/yyyy.");
+            }
+
             Book newBook = new Book(title, authorsList, genre, publicationDate);
             LibraryManager.getLibrary().addBook(newBook);
             LibraryManager.getLibrary().addAuthor(authors, newBook);
@@ -56,21 +122,6 @@ public class AddBookController {
             genreTextField.setText("");
             publishDateTextField.setValue(null);
             authorsListView.getItems().clear();
-
-            Set<Category> categories = LibraryManager.getLibrary().getCategories();
-            boolean categoryNotExisting = true;
-            for (Category category : categories) {
-                if (genre.equals(category.getName())) {
-                    categoryNotExisting = false;
-                    category.addBook(newBook);
-                }
-            }
-
-            if (categoryNotExisting) {
-                Category newCategory = new Category(genre);
-                newCategory.addBook(newBook);
-                categories.add(newCategory);
-            }
 
             labelAddConfirmation.setText("Carte adaugată cu succes!");
             labelAddConfirmation.setVisible(true);
@@ -81,11 +132,12 @@ public class AddBookController {
             ));
             timeline.setCycleCount(1);
             timeline.play();
-        }else {
+
+        } catch (InvalidBookDataException | InvalidGenreException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Atenție");
             alert.setHeaderText("Informații lipsă sau invalide");
-            alert.setContentText("Completează toate câmpurile corespunzător înainte de a adăuga o carte.");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
     }
@@ -96,16 +148,23 @@ public class AddBookController {
 
     @FXML
     public void onAddNewAuthor(ActionEvent event) {
-        if ("".equals(authorTextField.getText())) {
+        String author = authorTextField.getText();
+        try {
+            if (author.isEmpty()) {
+                throw new InvalidAuthorException("Completează câmpul cu numele autorului.");
+            }
+            if (!author.matches("[a-zA-Z ]+")) {
+                throw new InvalidAuthorException("Numele autorului trebuie să conțină doar litere și spații.");
+            }
+
+            authors.add(author);
+            authorTextField.setText("");
+        } catch (InvalidAuthorException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Atenție");
             alert.setHeaderText("Informații invalide");
-            alert.setContentText("Completează câmpul cu numele autorului corespunzător înainte de a-l adăuga.");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
-        } else {
-            String author = authorTextField.getText();
-            authors.add(author);
-            authorTextField.setText("");
         }
     }
 
