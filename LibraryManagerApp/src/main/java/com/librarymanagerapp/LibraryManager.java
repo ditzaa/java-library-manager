@@ -37,6 +37,7 @@ public class LibraryManager extends Application {
         scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         mainStage.setScene(scene);
         stage.setTitle("BookFlow");
+        stage.setResizable(false);
         stage.show();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

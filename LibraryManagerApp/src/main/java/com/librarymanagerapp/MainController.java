@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -16,11 +17,36 @@ import java.util.Map;
 import java.util.Set;
 
 public class MainController {
+
     @FXML
+    private Button buttonDisplayMonthsYearMap;
+    @FXML
+    private Button buttonPrintAllBooks;
+    @FXML
+    private Button buttonRemoveBook;
+    @FXML
+    private Button buttonResetLibrary;
+    @FXML
+    private Button buttonSearchBook;
+    @FXML
+    private Button buttonViewReports;
+    @FXML
+    private Button buttonDisplayCategories;
+    @FXML
+    private Button buttonDisplayAuthors;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
+    boolean developerButtonsVisible = false;
+
+    public void initialize() {
+        buttonPrintAllBooks.setVisible(false);
+        buttonDisplayAuthors.setVisible(false);
+        buttonResetLibrary.setVisible(false);
+        buttonDisplayCategories.setVisible(false);
+        buttonDisplayMonthsYearMap.setVisible(false);
+    }
 
     public void switchToAddBookScene(ActionEvent event) {
         try {
@@ -92,5 +118,27 @@ public class MainController {
                 System.out.println(book);
             }
         }
+    }
+
+    @FXML
+    void showDeveloperFunctions(ActionEvent event) {
+        if (!developerButtonsVisible) {
+            buttonPrintAllBooks.setVisible(true);
+            buttonDisplayAuthors.setVisible(true);
+            buttonResetLibrary.setVisible(true);
+            buttonDisplayCategories.setVisible(true);
+            buttonDisplayMonthsYearMap.setVisible(true);
+
+            developerButtonsVisible = true;
+        } else {
+            buttonPrintAllBooks.setVisible(false);
+            buttonDisplayAuthors.setVisible(false);
+            buttonResetLibrary.setVisible(false);
+            buttonDisplayCategories.setVisible(false);
+            buttonDisplayMonthsYearMap.setVisible(false);
+
+            developerButtonsVisible = false;
+        }
+
     }
 }

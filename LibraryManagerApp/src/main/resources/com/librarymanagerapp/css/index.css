@@ -1,20 +1,34 @@
 .root {
+  -fx-background-color: #F2F2F2;
 }
 
-#vBoxMainMenu {
-  -fx-background-color: #d4d4d4;
-  -fx-content-display: flex;
-  -fx-alignment: center;
+#mainContainer {
+
 }
 
-#vBoxButtonsMenu {
-}
-
-.buttons {
-}
-
-.label {
-  -fx-font-size: 20;
+#labelBookflow {
   -fx-font-family: "Lucida Console";
-  -fx-alignment: center;
 }
+
+#anchorPaneMainMenu {
+  -fx-background-color: #D4D4D4;
+}
+
+#labelHello {
+  -fx-font-family: "Roboto Mono";
+  -fx-font-weight: bold;
+}
+
+.button {
+  -fx-font-family: "Roboto";
+  -fx-font-weight: bold;
+  -fx-background-color: #D4D4D4;
+  -fx-font-size: 14;
+}
+
+#labelMainMenu1, #labelMainMenu2 {
+  -fx-font-family: "Roboto Mono";
+  -fx-font-weight: bold;
+}
+
+
