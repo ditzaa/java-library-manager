@@ -35,8 +35,25 @@ public class AddBookController {
     private DatePicker publishDateTextField;
     @FXML
     private Label labelAddConfirmation;
+    @FXML
+    private Button buttonDisplayMonthsYearMap;
+    @FXML
+    private Button buttonPrintAllBooks;
+    @FXML
+    private Button buttonRemoveBook;
+    @FXML
+    private Button buttonResetLibrary;
+    @FXML
+    private Button buttonSearchBook;
+    @FXML
+    private Button buttonViewReports;
+    @FXML
+    private Button buttonDisplayCategories;
+    @FXML
+    private Button buttonDisplayAuthors;
 
     ObservableList<String> authors = FXCollections.observableArrayList();
+    boolean developerButtonsVisible = false;
 
     public void switchToMainMenu(ActionEvent event) {
         try {
@@ -127,5 +144,66 @@ public class AddBookController {
     public void onRemoveAuthor(ActionEvent event) {
         ObservableList<String> authorsToDelete = authorsListView.getSelectionModel().getSelectedItems();
         authors.removeAll(authorsToDelete);
+    }
+
+    @FXML
+    public void displayBooks(ActionEvent event){
+        System.out.println();
+        LibraryManager.getLibrary().displayBooks();
+    }
+
+    @FXML
+    void onReportsMenu(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("generate-reports-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToRemoveBookScene(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("remove-book-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToAddBookScene(ActionEvent event) {
+        try {
+            LibraryManager.switchScene("add-book-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void showDeveloperFunctions(ActionEvent event) {
+        if (!developerButtonsVisible) {
+            buttonPrintAllBooks.setVisible(true);
+            buttonDisplayAuthors.setVisible(true);
+            buttonResetLibrary.setVisible(true);
+            buttonDisplayCategories.setVisible(true);
+            buttonDisplayMonthsYearMap.setVisible(true);
+
+            developerButtonsVisible = true;
+        } else {
+            buttonPrintAllBooks.setVisible(false);
+            buttonDisplayAuthors.setVisible(false);
+            buttonResetLibrary.setVisible(false);
+            buttonDisplayCategories.setVisible(false);
+            buttonDisplayMonthsYearMap.setVisible(false);
+
+            developerButtonsVisible = false;
+        }
+    }
+
+    @FXML
+    void onBookSearch(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("search-book-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

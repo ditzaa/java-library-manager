@@ -31,4 +31,19 @@
   -fx-font-weight: bold;
 }
 
+/*Add book page*/
+.buttonsAddBook {
+  -fx-background-color: rgb(24, 196, 255);
+  -fx-text-fill: #FFFFFF;
+}
+
+.labelsInput {
+  -fx-font-size: 15;
+  -fx-font-weight: bold;
+}
+
+.textFields {
+  -fx-start-margin: 0 0 0 20;
+}
+
 

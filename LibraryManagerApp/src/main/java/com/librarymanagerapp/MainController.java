@@ -50,7 +50,8 @@ public class MainController {
 
     public void switchToAddBookScene(ActionEvent event) {
         try {
-            LibraryManager.switchScene("add-book-view.fxml");
+            Scene scene = LibraryManager.switchScene("add-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -73,7 +74,7 @@ public class MainController {
     @FXML
     void onBookSearch(ActionEvent event) {
         try {
-            LibraryManager.switchScene("search-book-view.fxml");
+            Scene scene = LibraryManager.switchScene("search-book-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -139,6 +140,5 @@ public class MainController {
 
             developerButtonsVisible = false;
         }
-
     }
 }
