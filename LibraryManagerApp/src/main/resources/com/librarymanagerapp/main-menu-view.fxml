@@ -19,7 +19,7 @@
      <Button fx:id="buttonViewReports" layoutX="42.0" layoutY="350.0" mnemonicParsing="false" onAction="#onReportsMenu" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Rapoarte" />
      <Button fx:id="buttonRemoveBook" layoutX="42.0" layoutY="300.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="30.0" prefWidth="119.0" text="Șterge carte" />
      <Button fx:id="buttonAddBook" layoutX="42.0" layoutY="251.0" mnemonicParsing="false" onAction="#switchToAddBookScene" prefHeight="30.0" prefWidth="119.0" text="Adaugă carte" />
-     <Button fx:id="buttonSearchBook" layoutX="42.0" layoutY="199.0" mnemonicParsing="false" onAction="#onBookSearch" prefHeight="30.0" prefWidth="119.0" text="Caută carte" />
+     <Button fx:id="buttonSearchBook" layoutX="42.0" layoutY="199.0" mnemonicParsing="false" onAction="#onBookSearchSwitch" prefHeight="30.0" prefWidth="119.0" text="Caută carte" />
          <Button layoutX="41.0" layoutY="514.0" mnemonicParsing="false" onAction="#showDeveloperFunctions" prefHeight="30.0" prefWidth="119.0" text="Dezvoltator" />
     </AnchorPane>
     <Label fx:id="labelBookflow" layoutX="421.0" layoutY="42.0" text="BookFlow">

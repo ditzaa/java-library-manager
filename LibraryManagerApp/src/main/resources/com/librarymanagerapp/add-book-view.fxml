@@ -13,7 +13,7 @@
             <Button fx:id="buttonViewReports" layoutX="42.0" layoutY="350.0" mnemonicParsing="false" onAction="#onReportsMenu" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Rapoarte" />
             <Button fx:id="buttonRemoveBook" layoutX="42.0" layoutY="300.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="30.0" prefWidth="119.0" text="Șterge carte" />
             <Button fx:id="buttonAddBook" layoutX="42.0" layoutY="251.0" mnemonicParsing="false" onAction="#switchToAddBookScene" prefHeight="30.0" prefWidth="119.0" text="Adaugă carte" />
-            <Button fx:id="buttonSearchBook" layoutX="42.0" layoutY="199.0" mnemonicParsing="false" onAction="#onBookSearch" prefHeight="30.0" prefWidth="119.0" text="Caută carte" />
+            <Button fx:id="buttonSearchBook" layoutX="42.0" layoutY="199.0" mnemonicParsing="false" onAction="#onBookSearchSwitch" prefHeight="30.0" prefWidth="119.0" text="Caută carte" />
         </AnchorPane>
         <Label layoutX="417.0" layoutY="40.0" styleClass="labelsInput" text="Adaugă o nouă carte în bibliotecă" />
         <Label layoutX="331.0" layoutY="117.0" styleClass="labelsInput" text="Titlu" />
@@ -26,10 +26,10 @@
         <TextField fx:id="authorTextField" layoutX="390.0" layoutY="171.0" prefHeight="30.0" prefWidth="264.0" styleClass="textFields" />
         <ListView fx:id="authorsListView" layoutX="390.0" layoutY="221.0" prefHeight="125.0" prefWidth="264.0" />
         <Label layoutX="277.0" layoutY="221.0" styleClass="labelsInput" text="Listă autori" />
-        <Button fx:id="buttonAddBook" layoutX="532.0" layoutY="500.0" mnemonicParsing="false" onAction="#onAddBook" prefHeight="25.0" prefWidth="95.0" styleClass="buttonsAddBook" text="Adaugă" />
-        <Button fx:id="buttonBackToMenu" layoutX="417.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="25.0" prefWidth="95.0" styleClass="buttonsAddBook" text="Înapoi" />
-        <Button fx:id="buttonAddAuthor" layoutX="671.0" layoutY="171.0" mnemonicParsing="false" onAction="#onAddNewAuthor" prefHeight="25.0" prefWidth="136.0" styleClass="buttonsAddBook" text="Adaugă autor" />
-        <Button fx:id="buttonAddAuthor1" layoutX="671.0" layoutY="222.0" mnemonicParsing="false" onAction="#onRemoveAuthor" prefHeight="25.0" prefWidth="136.0" styleClass="buttonsAddBook" text="Șterge autor" />
+        <Button fx:id="buttonAddBook" layoutX="532.0" layoutY="500.0" mnemonicParsing="false" onAction="#onAddBook" prefHeight="25.0" prefWidth="85.0" styleClass="buttonsAddBook" text="Adaugă" />
+        <Button fx:id="buttonBackToMenu" layoutX="417.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="25.0" prefWidth="85.0" styleClass="buttonsAddBook" text="Înapoi" />
+        <Button fx:id="buttonAddAuthor" layoutX="671.0" layoutY="171.0" mnemonicParsing="false" onAction="#onAddNewAuthor" prefHeight="25.0" prefWidth="130.0" styleClass="buttonsAddBook" text="Adaugă autor" />
+        <Button fx:id="buttonAddAuthor1" layoutX="671.0" layoutY="222.0" mnemonicParsing="false" onAction="#onRemoveAuthor" prefHeight="25.0" prefWidth="130.0" styleClass="buttonsAddBook" text="Șterge autor" />
         <Label fx:id="labelAddConfirmation" layoutX="133.0" layoutY="362.0" styleClass="buttonsAddBook" text="Label" visible="false" />
     </children>
 
