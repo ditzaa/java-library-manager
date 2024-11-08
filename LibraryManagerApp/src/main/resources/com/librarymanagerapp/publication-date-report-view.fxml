@@ -5,12 +5,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.BorrowDateReportController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.BorrowDateReportController">
    <children>
-      <Label layoutX="127.0" layoutY="44.0" text="Creare raport al cărților împrumutate într-o anumită perioadă" />
-      <ComboBox fx:id="comboBoxMonth" layoutX="128.0" layoutY="88.0" prefHeight="25.0" prefWidth="146.0" promptText="Luna" />
-      <Button layoutX="411.0" layoutY="88.0" mnemonicParsing="false" onAction="#onGenerateDateReport" text="Generează" />
-      <Button layoutX="274.0" layoutY="160.0" mnemonicParsing="false" onAction="#switchToReportsMenu" text="Înapoi" />
-      <ComboBox fx:id="comboBoxYear" layoutX="290.0" layoutY="88.0" prefHeight="25.0" prefWidth="91.0" promptText="Anul" />
+      <AnchorPane id="anchorPaneMainMenu" prefHeight="600.0" prefWidth="200.0">
+         <Button fx:id="buttonViewReports" layoutX="42.0" layoutY="350.0" mnemonicParsing="false" onAction="#onReportsMenu" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Rapoarte" />
+         <Button fx:id="buttonRemoveBook" layoutX="42.0" layoutY="300.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="30.0" prefWidth="119.0" text="Șterge carte" />
+         <Button fx:id="buttonAddBook" layoutX="42.0" layoutY="251.0" mnemonicParsing="false" onAction="#switchToAddBookScene" prefHeight="30.0" prefWidth="119.0" text="Adaugă carte" />
+         <Button fx:id="buttonSearchBook" layoutX="42.0" layoutY="199.0" mnemonicParsing="false" onAction="#onBookSearchSwitch" prefHeight="30.0" prefWidth="119.0" text="Caută carte" />
+      </AnchorPane>
+      <Label layoutX="344.0" layoutY="64.0" styleClass="labelsInput" text="Creare raport al cărților împrumutate într-o anumită perioadă" />
+      <ComboBox fx:id="comboBoxMonth" layoutX="345.0" layoutY="209.0" prefHeight="44.0" prefWidth="146.0" promptText="Luna" styleClass="comboBoxDate" />
+      <Button layoutX="628.0" layoutY="218.0" mnemonicParsing="false" onAction="#onGenerateDateReport" prefHeight="25.0" prefWidth="126.0" styleClass="buttonsAddBook" text="Generează" />
+      <Button layoutX="462.0" layoutY="300.0" mnemonicParsing="false" onAction="#switchToReportsMenu" prefHeight="25.0" prefWidth="91.0" styleClass="buttonsAddBook" text="Înapoi" />
+      <ComboBox fx:id="comboBoxYear" layoutX="507.0" layoutY="209.0" prefHeight="44.0" prefWidth="91.0" promptText="Anul" styleClass="comboBoxDate" />
    </children>
 </AnchorPane>

@@ -14,7 +14,7 @@
     <AnchorPane id="anchorPaneMainMenu" prefHeight="600.0" prefWidth="200.0">
       <Label fx:id="labelHello" alignment="CENTER" layoutX="73.0" layoutY="62.0" text="Salut!">
             <font>
-               <Font name="System Bold" size="20.0" />
+               <Font name="System Bold" size="18.0" />
             </font></Label>
      <Button fx:id="buttonViewReports" layoutX="42.0" layoutY="350.0" mnemonicParsing="false" onAction="#onReportsMenu" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Rapoarte" />
      <Button fx:id="buttonRemoveBook" layoutX="42.0" layoutY="300.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="30.0" prefWidth="119.0" text="Șterge carte" />
@@ -22,7 +22,7 @@
      <Button fx:id="buttonSearchBook" layoutX="42.0" layoutY="199.0" mnemonicParsing="false" onAction="#onBookSearchSwitch" prefHeight="30.0" prefWidth="119.0" text="Caută carte" />
          <Button layoutX="41.0" layoutY="514.0" mnemonicParsing="false" onAction="#showDeveloperFunctions" prefHeight="30.0" prefWidth="119.0" text="Dezvoltator" />
     </AnchorPane>
-    <Label fx:id="labelBookflow" layoutX="421.0" layoutY="42.0" text="BookFlow">
+    <Label fx:id="labelBookflow" layoutX="446.0" layoutY="42.0" text="BookFlow">
       <font>
         <Font size="30.0" />
       </font>
@@ -33,15 +33,15 @@
     <Button fx:id="buttonResetLibrary" layoutX="726.0" layoutY="330.0" mnemonicParsing="false" onAction="#onResetLibraryDataClicked" prefHeight="44.0" prefWidth="87.0" styleClass="developerButtons" text="Reset" />
     <Button fx:id="buttonDisplayCategories" layoutX="726.0" layoutY="207.0" mnemonicParsing="false" onAction="#displayCategories" prefHeight="44.0" prefWidth="87.0" styleClass="developerButtons" text="Categorii" />
     <Button fx:id="buttonDisplayMonthsYearMap" layoutX="726.0" layoutY="268.0" mnemonicParsing="false" onAction="#printMonthsYearsMap" prefHeight="44.0" prefWidth="87.0" styleClass="developerButtons" text="Lună-An" />
-    <Label fx:id="labelMainMenu1" layoutX="338.0" layoutY="430.0" text="Bine ai venit în aplicația de gestionare a bibliotecii!">
+    <Label fx:id="labelMainMenu1" layoutX="441.0" layoutY="429.0" text="Bine ai venit în aplicație!">
          <font>
             <Font size="13.0" />
          </font></Label>
-      <ImageView fitHeight="320.0" fitWidth="389.0" layoutX="306.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="320.0" fitWidth="389.0" layoutX="331.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/main_menu_image.png" />
          </image></ImageView>
-      <Label fx:id="labelMainMenu2" layoutX="253.0" layoutY="459.0" text="Toate funcționalitățile pentru a gestiona cărțile din biblioteca ta sunt la un click distanță!">
+      <Label fx:id="labelMainMenu2" layoutX="278.0" layoutY="459.0" text="Toate funcționalitățile pentru a gestiona cărțile din biblioteca ta sunt la un click distanță!">
          <font>
             <Font size="13.0" />
          </font></Label>

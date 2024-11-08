@@ -7,25 +7,25 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="484.0" prefWidth="627.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.EditBookController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.EditBookController">
    <children>
-      <Label layoutX="223.0" layoutY="38.0" text="Modifică detaliile curente ale cărții" />
-      <Label layoutX="41.0" layoutY="88.0" text="Titlu" />
-      <Label layoutX="41.0" layoutY="128.0" text="Autor / Autori" />
-      <Label layoutX="41.0" layoutY="301.0" text="Gen" />
-      <Label layoutX="41.0" layoutY="341.0" text="Data publicării" />
-      <TextField fx:id="titleTextField" layoutX="157.0" layoutY="84.0" prefHeight="25.0" prefWidth="264.0" />
-      <TextField fx:id="genreTextField" layoutX="157.0" layoutY="289.0" prefHeight="25.0" prefWidth="264.0" />
-      <DatePicker fx:id="publishDateTextField" layoutX="157.0" layoutY="337.0" prefHeight="25.0" prefWidth="264.0" promptText="MM/DD/YYYY" />
-      <TextField fx:id="authorTextField" layoutX="157.0" layoutY="124.0" prefHeight="25.0" prefWidth="264.0" />
-      <ListView fx:id="authorsListView" layoutX="157.0" layoutY="160.0" prefHeight="107.0" prefWidth="264.0" />
-      <Label layoutX="41.0" layoutY="160.0" text="Listă autori" />
-      <Button fx:id="buttonEditBook" layoutX="262.0" layoutY="445.0" mnemonicParsing="false" onAction="#onEditBook" prefHeight="25.0" prefWidth="95.0" text="Modifică" />
-      <Button fx:id="buttonBackToBookDetails" layoutX="157.0" layoutY="445.0" mnemonicParsing="false" onAction="#switchToBookDetails" prefHeight="25.0" prefWidth="95.0" text="Înapoi" />
-      <Button fx:id="buttonAddAuthor" layoutX="438.0" layoutY="124.0" mnemonicParsing="false" onAction="#onAddNewAuthor" text="Adaugă autor" />
-      <Button fx:id="buttonRemoveAuthor" layoutX="438.0" layoutY="161.0" mnemonicParsing="false" onAction="#onRemoveAuthor" prefHeight="25.0" prefWidth="89.0" text="Șterge autor" />
+      <Label layoutX="347.0" layoutY="39.0" text="Modifică detaliile curente ale cărții" />
+      <Label layoutX="269.0" layoutY="98.0" styleClass="labelsInput" text="Titlu" />
+      <Label layoutX="208.0" layoutY="159.0" styleClass="labelsInput" text="Autor / Autori" />
+      <Label layoutX="268.0" layoutY="346.0" styleClass="labelsInput" text="Gen" />
+      <Label layoutX="200.0" layoutY="394.0" styleClass="labelsInput" text="Data publicării" />
+      <TextField fx:id="titleTextField" layoutX="324.0" layoutY="94.0" prefHeight="30.0" prefWidth="264.0" />
+      <TextField fx:id="genreTextField" layoutX="325.0" layoutY="335.0" prefHeight="30.0" prefWidth="264.0" />
+      <DatePicker fx:id="publishDateTextField" layoutX="325.0" layoutY="390.0" prefHeight="25.0" prefWidth="264.0" promptText="MM/DD/YYYY" />
+      <TextField fx:id="authorTextField" layoutX="324.0" layoutY="155.0" prefHeight="30.0" prefWidth="264.0" />
+      <ListView fx:id="authorsListView" layoutX="324.0" layoutY="206.0" prefHeight="107.0" prefWidth="264.0" />
+      <Label layoutX="227.0" layoutY="206.0" styleClass="labelsInput" text="Listă autori" />
+      <Button fx:id="buttonEditBook" layoutX="482.0" layoutY="494.0" mnemonicParsing="false" onAction="#onEditBook" prefHeight="25.0" prefWidth="95.0" styleClass="buttonsAddBook" text="Modifică" />
+      <Button fx:id="buttonBackToBookDetails" layoutX="347.0" layoutY="494.0" mnemonicParsing="false" onAction="#switchToBookDetails" prefHeight="25.0" prefWidth="95.0" styleClass="buttonsAddBook" text="Înapoi" />
+      <Button fx:id="buttonAddAuthor" layoutX="605.0" layoutY="155.0" mnemonicParsing="false" onAction="#onAddNewAuthor" prefHeight="25.0" prefWidth="132.0" styleClass="buttonsAddBook" text="Adaugă autor" />
+      <Button fx:id="buttonRemoveAuthor" layoutX="605.0" layoutY="205.0" mnemonicParsing="false" onAction="#onRemoveAuthor" prefHeight="25.0" prefWidth="132.0" styleClass="buttonsAddBook" text="Șterge autor" />
       <Label fx:id="labelEditConfirmation" layoutX="157.0" layoutY="418.0" text="Label" visible="false" />
-      <Label layoutX="40.0" layoutY="390.0" text="Nume cititor curent" />
-      <TextField fx:id="readerTextField" layoutX="157.0" layoutY="386.0" prefHeight="25.0" prefWidth="264.0" />
+      <Label layoutX="166.0" layoutY="443.0" styleClass="labelsInput" text="Nume cititor curent" />
+      <TextField fx:id="readerTextField" layoutX="325.0" layoutY="436.0" prefHeight="30.0" prefWidth="264.0" />
    </children>
 </AnchorPane>

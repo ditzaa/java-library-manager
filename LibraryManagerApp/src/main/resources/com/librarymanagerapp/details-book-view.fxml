@@ -5,27 +5,46 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="488.0" prefWidth="727.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.BookDetailsController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.BookDetailsController">
    <children>
-      <Label layoutX="298.0" layoutY="24.0" text="Pagină detaliată carte" />
-      <Label fx:id="labelBookTitle" layoutX="342.0" layoutY="61.0" text="Label" />
-      <Label layoutX="47.0" layoutY="102.0" text="Lista autori: " />
-      <Label layoutX="88.0" layoutY="228.0" text="Gen:" />
-      <Label layoutX="29.0" layoutY="305.0" text="Data publicării:" />
-      <Button fx:id="buttonEditBookInfo" layoutX="296.0" layoutY="367.0" mnemonicParsing="false" onAction="#onBookEditOption" prefHeight="25.0" prefWidth="132.0" text="Editează informații" />
-      <Button fx:id="buttonBorrowReturnBook" layoutX="503.0" layoutY="367.0" mnemonicParsing="false" onAction="#onBookStatusChange" prefHeight="25.0" prefWidth="125.0" text="Împrumută" />
-      <Label layoutX="445.0" layoutY="103.0" text="Status: " />
-      <Label layoutX="397.0" layoutY="173.0" text="Dată împrumut:" />
-      <ListView fx:id="listViewAuthors" layoutX="124.0" layoutY="102.0" prefHeight="99.0" prefWidth="200.0" />
-      <Button fx:id="buttonBack" layoutX="86.0" layoutY="367.0" mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="25.0" prefWidth="125.0" text="Înapoi" />
-      <Label fx:id="labelGenre" layoutX="125.0" layoutY="228.0" text="Label" />
-      <Label fx:id="labelPublicationDate" layoutX="124.0" layoutY="305.0" text="Label" />
-      <Label layoutX="403.0" layoutY="235.0" text="Dată restituire:" />
-      <Label layoutX="410.0" layoutY="305.0" text="Cititor curent:" />
-      <TextField fx:id="textFieldCurrentReader" layoutX="496.0" layoutY="301.0" />
-      <Label fx:id="labelStatus" layoutX="499.0" layoutY="103.0" text="Label" />
-      <Label fx:id="labelBorrowDate" layoutX="499.0" layoutY="173.0" text="Label" />
-      <Label fx:id="labelReturnDate" layoutX="499.0" layoutY="235.0" text="Label" />
+      <Label layoutX="393.0" layoutY="23.0" styleClass="labelsInput" text="Pagină detaliată carte" />
+      <Label fx:id="labelBookTitle" layoutX="430.0" layoutY="64.0" styleClass="labelsInput" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="47.0" layoutY="126.0" styleClass="labelsInput" text="Lista autori: " />
+      <Label layoutX="88.0" layoutY="252.0" styleClass="labelsInput" text="Gen:" />
+      <Label layoutX="29.0" layoutY="329.0" styleClass="labelsInput" text="Data publicării:" />
+      <Button fx:id="buttonEditBookInfo" layoutX="379.0" layoutY="452.0" mnemonicParsing="false" onAction="#onBookEditOption" prefHeight="25.0" prefWidth="163.0" styleClass="buttonsAddBook" text="Editează informații" />
+      <Button fx:id="buttonBorrowReturnBook" layoutX="653.0" layoutY="452.0" mnemonicParsing="false" onAction="#onBookStatusChange" prefHeight="25.0" prefWidth="125.0" styleClass="buttonsAddBook" text="Împrumută" />
+      <Label layoutX="592.0" layoutY="126.0" styleClass="labelsInput" text="Status: " />
+      <Label layoutX="544.0" layoutY="196.0" styleClass="labelsInput" text="Dată împrumut:" />
+      <ListView fx:id="listViewAuthors" layoutX="149.0" layoutY="126.0" prefHeight="99.0" prefWidth="200.0" />
+      <Button fx:id="buttonBack" layoutX="172.0" layoutY="452.0" mnemonicParsing="false" onAction="#switchToBookSearch" prefHeight="25.0" prefWidth="125.0" styleClass="buttonsAddBook" text="Înapoi" />
+      <Label fx:id="labelGenre" layoutX="150.0" layoutY="253.0" text="Label">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label fx:id="labelPublicationDate" layoutX="149.0" layoutY="330.0" text="Label">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="550.0" layoutY="258.0" styleClass="labelsInput" text="Dată restituire:" />
+      <Label layoutX="557.0" layoutY="328.0" styleClass="labelsInput" text="Cititor curent:" />
+      <TextField fx:id="textFieldCurrentReader" layoutX="668.0" layoutY="325.0" />
+      <Label fx:id="labelStatus" layoutX="671.0" layoutY="127.0" text="Label">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label fx:id="labelBorrowDate" layoutX="671.0" layoutY="197.0" text="Label">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label fx:id="labelReturnDate" layoutX="671.0" layoutY="259.0" text="Label">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
    </children>
 </AnchorPane>

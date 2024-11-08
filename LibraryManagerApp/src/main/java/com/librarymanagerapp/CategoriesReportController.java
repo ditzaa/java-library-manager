@@ -34,7 +34,8 @@ public class CategoriesReportController {
     @FXML
     void switchToReportsMenu(ActionEvent event) {
         try {
-            LibraryManager.switchScene("generate-reports-view.fxml");
+            Scene scene = LibraryManager.switchScene("generate-reports-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -235,6 +236,44 @@ public class CategoriesReportController {
         return input.length() > maxLength ?
                 input.substring(0, maxLength - 3) + "..." :
                 input;
+    }
+
+    @FXML
+    void onReportsMenu(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("generate-reports-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToAddBookScene(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("add-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToRemoveBookScene(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("remove-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void onBookSearchSwitch(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("search-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

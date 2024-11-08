@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -95,7 +96,8 @@ public class BookDetailsController {
     @FXML
     void switchToMainMenu(ActionEvent event) {
         try {
-            LibraryManager.switchScene("main-menu-view.fxml");
+            Scene scene = LibraryManager.switchScene("main-menu-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -166,7 +168,18 @@ public class BookDetailsController {
     @FXML
     void onBookEditOption(ActionEvent event) {
         try {
-            LibraryManager.switchScene("edit-book-view.fxml");
+            Scene scene = LibraryManager.switchScene("edit-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void switchToBookSearch(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("search-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

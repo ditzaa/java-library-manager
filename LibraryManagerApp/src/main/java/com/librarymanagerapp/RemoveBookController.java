@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +36,8 @@ public class RemoveBookController {
 
     public void switchToMainMenu(ActionEvent event) {
         try {
-            LibraryManager.switchScene("main-menu-view.fxml");
+            Scene scene = LibraryManager.switchScene("main-menu-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -110,5 +112,43 @@ public class RemoveBookController {
     @FXML
     void onSelectBookToRemove(MouseEvent event) {
         bookToRemove = tableViewBooksToDelete.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    void onReportsMenu(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("generate-reports-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToAddBookScene(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("add-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToRemoveBookScene(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("remove-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void onBookSearchSwitch(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("search-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

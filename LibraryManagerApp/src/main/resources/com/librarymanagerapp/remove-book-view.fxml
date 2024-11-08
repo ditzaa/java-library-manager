@@ -7,16 +7,22 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.RemoveBookController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagerapp.RemoveBookController">
     <children>
-        <TextField fx:id="textFieldBookToDelete" layoutX="144.0" layoutY="68.0" prefHeight="25.0" prefWidth="313.0" />
-        <Label layoutX="14.0" layoutY="72.0" text="Caută carte după titlu" />
-        <Button fx:id="buttonDeleteBook" layoutX="276.0" layoutY="318.0" mnemonicParsing="false" onAction="#onDeleteBook" text="Șterge carte" />
-        <Label layoutX="77.0" layoutY="100.0" text="Rezultate:" />
-        <Label layoutX="246.0" layoutY="22.0" text="Șterge carte din bibliotecă" />
-        <Button layoutX="196.0" layoutY="318.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Înapoi" />
-        <Button fx:id="buttonSearchBookToRemove" layoutX="463.0" layoutY="68.0" mnemonicParsing="false" onAction="#searchBookToRemove" text="Caută" />
-        <TableView fx:id="tableViewBooksToDelete" layoutX="144.0" layoutY="100.0" onMouseClicked="#onSelectBookToRemove" prefHeight="200.0" prefWidth="313.0">
+        <AnchorPane id="anchorPaneMainMenu" prefHeight="600.0" prefWidth="200.0">
+            <Button fx:id="buttonViewReports" layoutX="42.0" layoutY="350.0" mnemonicParsing="false" onAction="#onReportsMenu" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Rapoarte" />
+            <Button fx:id="buttonRemoveBook" layoutX="42.0" layoutY="300.0" mnemonicParsing="false" onAction="#switchToRemoveBookScene" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Șterge carte" />
+            <Button fx:id="buttonAddBook" layoutX="42.0" layoutY="251.0" mnemonicParsing="false" onAction="#switchToAddBookScene" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Adaugă carte" />
+            <Button fx:id="buttonSearchBook" layoutX="42.0" layoutY="199.0" mnemonicParsing="false" onAction="#onBookSearchSwitch" prefHeight="30.0" prefWidth="119.0" styleClass="menuButton" text="Caută carte" />
+        </AnchorPane>
+        <TextField fx:id="textFieldBookToDelete" layoutX="357.0" layoutY="103.0" prefHeight="30.0" prefWidth="313.0" />
+        <Label layoutX="216.0" layoutY="107.0" styleClass="labelsInput" text="Caută după titlu" />
+        <Button fx:id="buttonDeleteBook" layoutX="544.0" layoutY="368.0" mnemonicParsing="false" onAction="#onDeleteBook" styleClass="buttonsAddBook" text="Șterge carte" />
+        <Label layoutX="261.0" layoutY="150.0" styleClass="labelsInput" text="Rezultate" />
+        <Label layoutX="444.0" layoutY="25.0" styleClass="labelsInput" text="Șterge carte din bibliotecă" />
+        <Button layoutX="424.0" layoutY="368.0" mnemonicParsing="false" onAction="#switchToMainMenu" styleClass="buttonsAddBook" text="Înapoi" />
+        <Button fx:id="buttonSearchBookToRemove" layoutX="677.0" layoutY="105.0" mnemonicParsing="false" onAction="#searchBookToRemove" styleClass="buttonsAddBook" text="Caută" />
+        <TableView fx:id="tableViewBooksToDelete" layoutX="357.0" layoutY="150.0" onMouseClicked="#onSelectBookToRemove" prefHeight="200.0" prefWidth="313.0">
             <columns>
                 <TableColumn fx:id="columnBookId" prefWidth="95.0" text="ID Carte" />
                 <TableColumn fx:id="columnTitle" prefWidth="217.0" text="Titlu" />

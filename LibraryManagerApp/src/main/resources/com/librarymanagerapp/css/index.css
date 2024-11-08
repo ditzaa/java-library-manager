@@ -46,4 +46,9 @@
   -fx-start-margin: 0 0 0 20;
 }
 
-
+.comboBoxDate {
+  /*-fx-background-color: #28C3E5;*/
+  /*-fx-text-fill: #FFFFFF;*/
+  /*-fx-color-label-visible: #FFFFFF;*/
+  -fx-font-weight: bold;
+}

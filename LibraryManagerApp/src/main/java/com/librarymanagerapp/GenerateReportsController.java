@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
@@ -36,7 +37,8 @@ public class GenerateReportsController {
     @FXML
     void onAuthorReportClick(ActionEvent event) {
         try {
-            LibraryManager.switchScene("author-report-view.fxml");
+            Scene scene = LibraryManager.switchScene("author-report-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -45,7 +47,8 @@ public class GenerateReportsController {
     @FXML
     void onBorrowDateReportClick(ActionEvent event) {
         try {
-            LibraryManager.switchScene("publication-date-report-view.fxml");
+            Scene scene = LibraryManager.switchScene("publication-date-report-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -54,7 +57,8 @@ public class GenerateReportsController {
     @FXML
     void onGenreReportClick(ActionEvent event) {
         try {
-            LibraryManager.switchScene("categories-report-view.fxml");
+            Scene scene = LibraryManager.switchScene("categories-report-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -62,7 +66,8 @@ public class GenerateReportsController {
 
     public void switchToMainMenu(ActionEvent event) {
         try {
-            LibraryManager.switchScene("main-menu-view.fxml");
+            Scene scene = LibraryManager.switchScene("main-menu-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -127,6 +132,44 @@ public class GenerateReportsController {
                     e.printStackTrace();
                 }
             }).start();
+        }
+    }
+
+    public void switchToRemoveBookScene(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("remove-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToAddBookScene(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("add-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void onReportsMenu(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("generate-reports-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void onBookSearchSwitch(ActionEvent event) {
+        try {
+            Scene scene = LibraryManager.switchScene("search-book-view.fxml");
+            scene.getStylesheets().add(getClass().getResource("css/index.css").toExternalForm());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
